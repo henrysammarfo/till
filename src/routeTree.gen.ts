@@ -12,6 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AgentRouteImport } from './routes/agent'
 import { Route as BrandRouteImport } from './routes/brand'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as MerchRouteImport } from './routes/merch'
 import { Route as PlansRouteImport } from './routes/plans'
 import { Route as ProductRouteImport } from './routes/product'
@@ -30,6 +33,21 @@ const AgentRoute = AgentRouteImport.update({
 const BrandRoute = BrandRouteImport.update({
   id: '/brand',
   path: '/brand',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MerchRoute = MerchRouteImport.update({
@@ -57,6 +75,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agent': typeof AgentRoute
   '/brand': typeof BrandRoute
+  '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
+  '/faq': typeof FaqRoute
   '/merch': typeof MerchRoute
   '/plans': typeof PlansRoute
   '/product': typeof ProductRoute
@@ -66,6 +87,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agent': typeof AgentRoute
   '/brand': typeof BrandRoute
+  '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
+  '/faq': typeof FaqRoute
   '/merch': typeof MerchRoute
   '/plans': typeof PlansRoute
   '/product': typeof ProductRoute
@@ -76,6 +100,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/agent': typeof AgentRoute
   '/brand': typeof BrandRoute
+  '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
+  '/faq': typeof FaqRoute
   '/merch': typeof MerchRoute
   '/plans': typeof PlansRoute
   '/product': typeof ProductRoute
@@ -87,6 +114,9 @@ export interface FileRouteTypes {
     | '/'
     | '/agent'
     | '/brand'
+    | '/contact'
+    | '/dashboard'
+    | '/faq'
     | '/merch'
     | '/plans'
     | '/product'
@@ -96,6 +126,9 @@ export interface FileRouteTypes {
     | '/'
     | '/agent'
     | '/brand'
+    | '/contact'
+    | '/dashboard'
+    | '/faq'
     | '/merch'
     | '/plans'
     | '/product'
@@ -105,6 +138,9 @@ export interface FileRouteTypes {
     | '/'
     | '/agent'
     | '/brand'
+    | '/contact'
+    | '/dashboard'
+    | '/faq'
     | '/merch'
     | '/plans'
     | '/product'
@@ -115,6 +151,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgentRoute: typeof AgentRoute
   BrandRoute: typeof BrandRoute
+  ContactRoute: typeof ContactRoute
+  DashboardRoute: typeof DashboardRoute
+  FaqRoute: typeof FaqRoute
   MerchRoute: typeof MerchRoute
   PlansRoute: typeof PlansRoute
   ProductRoute: typeof ProductRoute
@@ -142,6 +181,27 @@ declare module '@tanstack/react-router' {
       path: '/brand'
       fullPath: '/brand'
       preLoaderRoute: typeof BrandRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/merch': {
@@ -179,6 +239,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgentRoute: AgentRoute,
   BrandRoute: BrandRoute,
+  ContactRoute: ContactRoute,
+  DashboardRoute: DashboardRoute,
+  FaqRoute: FaqRoute,
   MerchRoute: MerchRoute,
   PlansRoute: PlansRoute,
   ProductRoute: ProductRoute,
