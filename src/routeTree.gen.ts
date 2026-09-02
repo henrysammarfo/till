@@ -19,6 +19,9 @@ import { Route as MerchRouteImport } from './routes/merch'
 import { Route as PlansRouteImport } from './routes/plans'
 import { Route as ProductRouteImport } from './routes/product'
 import { Route as StablecoinsRouteImport } from './routes/stablecoins'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as DashboardTransactionsRouteImport } from './routes/dashboard.transactions'
+import { Route as DashboardUsersRouteImport } from './routes/dashboard.users'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -70,30 +73,50 @@ const StablecoinsRoute = StablecoinsRouteImport.update({
   path: '/stablecoins',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardTransactionsRoute = DashboardTransactionsRouteImport.update({
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardUsersRoute = DashboardUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => DashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agent': typeof AgentRoute
   '/brand': typeof BrandRoute
   '/contact': typeof ContactRoute
-  '/dashboard': typeof DashboardRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/faq': typeof FaqRoute
   '/merch': typeof MerchRoute
   '/plans': typeof PlansRoute
   '/product': typeof ProductRoute
   '/stablecoins': typeof StablecoinsRoute
+  '/dashboard/transactions': typeof DashboardTransactionsRoute
+  '/dashboard/users': typeof DashboardUsersRoute
+  '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agent': typeof AgentRoute
   '/brand': typeof BrandRoute
   '/contact': typeof ContactRoute
-  '/dashboard': typeof DashboardRoute
   '/faq': typeof FaqRoute
   '/merch': typeof MerchRoute
   '/plans': typeof PlansRoute
   '/product': typeof ProductRoute
   '/stablecoins': typeof StablecoinsRoute
+  '/dashboard/transactions': typeof DashboardTransactionsRoute
+  '/dashboard/users': typeof DashboardUsersRoute
+  '/dashboard': typeof DashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -101,12 +124,15 @@ export interface FileRoutesById {
   '/agent': typeof AgentRoute
   '/brand': typeof BrandRoute
   '/contact': typeof ContactRoute
-  '/dashboard': typeof DashboardRoute
+  '/dashboard': typeof DashboardRouteWithChildren
   '/faq': typeof FaqRoute
   '/merch': typeof MerchRoute
   '/plans': typeof PlansRoute
   '/product': typeof ProductRoute
   '/stablecoins': typeof StablecoinsRoute
+  '/dashboard/transactions': typeof DashboardTransactionsRoute
+  '/dashboard/users': typeof DashboardUsersRoute
+  '/dashboard/': typeof DashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -121,18 +147,23 @@ export interface FileRouteTypes {
     | '/plans'
     | '/product'
     | '/stablecoins'
+    | '/dashboard/transactions'
+    | '/dashboard/users'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/agent'
     | '/brand'
     | '/contact'
-    | '/dashboard'
     | '/faq'
     | '/merch'
     | '/plans'
     | '/product'
     | '/stablecoins'
+    | '/dashboard/transactions'
+    | '/dashboard/users'
+    | '/dashboard'
   id:
     | '__root__'
     | '/'
@@ -145,6 +176,9 @@ export interface FileRouteTypes {
     | '/plans'
     | '/product'
     | '/stablecoins'
+    | '/dashboard/transactions'
+    | '/dashboard/users'
+    | '/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -152,7 +186,7 @@ export interface RootRouteChildren {
   AgentRoute: typeof AgentRoute
   BrandRoute: typeof BrandRoute
   ContactRoute: typeof ContactRoute
-  DashboardRoute: typeof DashboardRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
   FaqRoute: typeof FaqRoute
   MerchRoute: typeof MerchRoute
   PlansRoute: typeof PlansRoute
@@ -232,15 +266,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StablecoinsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/transactions': {
+      id: '/dashboard/transactions'
+      path: '/transactions'
+      fullPath: '/dashboard/transactions'
+      preLoaderRoute: typeof DashboardTransactionsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/users': {
+      id: '/dashboard/users'
+      path: '/users'
+      fullPath: '/dashboard/users'
+      preLoaderRoute: typeof DashboardUsersRouteImport
+      parentRoute: typeof DashboardRoute
+    }
   }
 }
+
+interface DashboardRouteChildren {
+  DashboardTransactionsRoute: typeof DashboardTransactionsRoute
+  DashboardUsersRoute: typeof DashboardUsersRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardTransactionsRoute: DashboardTransactionsRoute,
+  DashboardUsersRoute: DashboardUsersRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgentRoute: AgentRoute,
   BrandRoute: BrandRoute,
   ContactRoute: ContactRoute,
-  DashboardRoute: DashboardRoute,
+  DashboardRoute: DashboardRouteWithChildren,
   FaqRoute: FaqRoute,
   MerchRoute: MerchRoute,
   PlansRoute: PlansRoute,
