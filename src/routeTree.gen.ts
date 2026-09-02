@@ -20,6 +20,9 @@ import { Route as PlansRouteImport } from './routes/plans'
 import { Route as ProductRouteImport } from './routes/product'
 import { Route as StablecoinsRouteImport } from './routes/stablecoins'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as DashboardAgentRouteImport } from './routes/dashboard.agent'
+import { Route as DashboardChecklistRouteImport } from './routes/dashboard.checklist'
+import { Route as DashboardSettingsRouteImport } from './routes/dashboard.settings'
 import { Route as DashboardTransactionsRouteImport } from './routes/dashboard.transactions'
 import { Route as DashboardUsersRouteImport } from './routes/dashboard.users'
 
@@ -78,6 +81,21 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardAgentRoute = DashboardAgentRouteImport.update({
+  id: '/agent',
+  path: '/agent',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardChecklistRoute = DashboardChecklistRouteImport.update({
+  id: '/checklist',
+  path: '/checklist',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardTransactionsRoute = DashboardTransactionsRouteImport.update({
   id: '/transactions',
   path: '/transactions',
@@ -100,6 +118,9 @@ export interface FileRoutesByFullPath {
   '/plans': typeof PlansRoute
   '/product': typeof ProductRoute
   '/stablecoins': typeof StablecoinsRoute
+  '/dashboard/agent': typeof DashboardAgentRoute
+  '/dashboard/checklist': typeof DashboardChecklistRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/transactions': typeof DashboardTransactionsRoute
   '/dashboard/users': typeof DashboardUsersRoute
   '/dashboard/': typeof DashboardIndexRoute
@@ -114,6 +135,9 @@ export interface FileRoutesByTo {
   '/plans': typeof PlansRoute
   '/product': typeof ProductRoute
   '/stablecoins': typeof StablecoinsRoute
+  '/dashboard/agent': typeof DashboardAgentRoute
+  '/dashboard/checklist': typeof DashboardChecklistRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/transactions': typeof DashboardTransactionsRoute
   '/dashboard/users': typeof DashboardUsersRoute
   '/dashboard': typeof DashboardIndexRoute
@@ -130,6 +154,9 @@ export interface FileRoutesById {
   '/plans': typeof PlansRoute
   '/product': typeof ProductRoute
   '/stablecoins': typeof StablecoinsRoute
+  '/dashboard/agent': typeof DashboardAgentRoute
+  '/dashboard/checklist': typeof DashboardChecklistRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/transactions': typeof DashboardTransactionsRoute
   '/dashboard/users': typeof DashboardUsersRoute
   '/dashboard/': typeof DashboardIndexRoute
@@ -147,6 +174,9 @@ export interface FileRouteTypes {
     | '/plans'
     | '/product'
     | '/stablecoins'
+    | '/dashboard/agent'
+    | '/dashboard/checklist'
+    | '/dashboard/settings'
     | '/dashboard/transactions'
     | '/dashboard/users'
     | '/dashboard/'
@@ -161,6 +191,9 @@ export interface FileRouteTypes {
     | '/plans'
     | '/product'
     | '/stablecoins'
+    | '/dashboard/agent'
+    | '/dashboard/checklist'
+    | '/dashboard/settings'
     | '/dashboard/transactions'
     | '/dashboard/users'
     | '/dashboard'
@@ -176,6 +209,9 @@ export interface FileRouteTypes {
     | '/plans'
     | '/product'
     | '/stablecoins'
+    | '/dashboard/agent'
+    | '/dashboard/checklist'
+    | '/dashboard/settings'
     | '/dashboard/transactions'
     | '/dashboard/users'
     | '/dashboard/'
@@ -273,6 +309,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/agent': {
+      id: '/dashboard/agent'
+      path: '/agent'
+      fullPath: '/dashboard/agent'
+      preLoaderRoute: typeof DashboardAgentRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/checklist': {
+      id: '/dashboard/checklist'
+      path: '/checklist'
+      fullPath: '/dashboard/checklist'
+      preLoaderRoute: typeof DashboardChecklistRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/transactions': {
       id: '/dashboard/transactions'
       path: '/transactions'
@@ -291,12 +348,18 @@ declare module '@tanstack/react-router' {
 }
 
 interface DashboardRouteChildren {
+  DashboardAgentRoute: typeof DashboardAgentRoute
+  DashboardChecklistRoute: typeof DashboardChecklistRoute
+  DashboardSettingsRoute: typeof DashboardSettingsRoute
   DashboardTransactionsRoute: typeof DashboardTransactionsRoute
   DashboardUsersRoute: typeof DashboardUsersRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardAgentRoute: DashboardAgentRoute,
+  DashboardChecklistRoute: DashboardChecklistRoute,
+  DashboardSettingsRoute: DashboardSettingsRoute,
   DashboardTransactionsRoute: DashboardTransactionsRoute,
   DashboardUsersRoute: DashboardUsersRoute,
   DashboardIndexRoute: DashboardIndexRoute,
