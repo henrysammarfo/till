@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Circle, CircleCheck } from "lucide-react";
 
-export const Route = createFileRoute("/dashboard/checklist")({
+export const Route = createFileRoute("/_authenticated/dashboard/checklist")({
   head: () => ({
     meta: [
       { title: "Build checklist — shipping the till to submission | TILL®" },

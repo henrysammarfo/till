@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Download, ExternalLink, Search } from "lucide-react";
 
-export const Route = createFileRoute("/dashboard/transactions")({
+export const Route = createFileRoute("/_authenticated/dashboard/transactions")({
   head: () => ({
     meta: [
       { title: "Transactions — tagged Celo mainnet settlements | TILL®" },
