@@ -13,18 +13,18 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AgentRouteImport } from './routes/agent'
 import { Route as BrandRouteImport } from './routes/brand'
 import { Route as ContactRouteImport } from './routes/contact'
-import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as MerchRouteImport } from './routes/merch'
 import { Route as PlansRouteImport } from './routes/plans'
 import { Route as ProductRouteImport } from './routes/product'
 import { Route as StablecoinsRouteImport } from './routes/stablecoins'
-import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
-import { Route as DashboardAgentRouteImport } from './routes/dashboard.agent'
-import { Route as DashboardChecklistRouteImport } from './routes/dashboard.checklist'
-import { Route as DashboardSettingsRouteImport } from './routes/dashboard.settings'
-import { Route as DashboardTransactionsRouteImport } from './routes/dashboard.transactions'
-import { Route as DashboardUsersRouteImport } from './routes/dashboard.users'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard.index'
+import { Route as AuthenticatedDashboardAgentRouteImport } from './routes/_authenticated/dashboard.agent'
+import { Route as AuthenticatedDashboardChecklistRouteImport } from './routes/_authenticated/dashboard.checklist'
+import { Route as AuthenticatedDashboardSettingsRouteImport } from './routes/_authenticated/dashboard.settings'
+import { Route as AuthenticatedDashboardTransactionsRouteImport } from './routes/_authenticated/dashboard.transactions'
+import { Route as AuthenticatedDashboardUsersRouteImport } from './routes/_authenticated/dashboard.users'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -44,11 +44,6 @@ const BrandRoute = BrandRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -76,54 +71,65 @@ const StablecoinsRoute = StablecoinsRouteImport.update({
   path: '/stablecoins',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardIndexRoute = DashboardIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => DashboardRoute,
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/_authenticated/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardAgentRoute = DashboardAgentRouteImport.update({
-  id: '/agent',
-  path: '/agent',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardChecklistRoute = DashboardChecklistRouteImport.update({
-  id: '/checklist',
-  path: '/checklist',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardTransactionsRoute = DashboardTransactionsRouteImport.update({
-  id: '/transactions',
-  path: '/transactions',
-  getParentRoute: () => DashboardRoute,
-} as any)
-const DashboardUsersRoute = DashboardUsersRouteImport.update({
-  id: '/users',
-  path: '/users',
-  getParentRoute: () => DashboardRoute,
-} as any)
+const AuthenticatedDashboardIndexRoute =
+  AuthenticatedDashboardIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardAgentRoute =
+  AuthenticatedDashboardAgentRouteImport.update({
+    id: '/agent',
+    path: '/agent',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardChecklistRoute =
+  AuthenticatedDashboardChecklistRouteImport.update({
+    id: '/checklist',
+    path: '/checklist',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardSettingsRoute =
+  AuthenticatedDashboardSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardTransactionsRoute =
+  AuthenticatedDashboardTransactionsRouteImport.update({
+    id: '/transactions',
+    path: '/transactions',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardUsersRoute =
+  AuthenticatedDashboardUsersRouteImport.update({
+    id: '/users',
+    path: '/users',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agent': typeof AgentRoute
   '/brand': typeof BrandRoute
   '/contact': typeof ContactRoute
-  '/dashboard': typeof DashboardRouteWithChildren
   '/faq': typeof FaqRoute
   '/merch': typeof MerchRoute
   '/plans': typeof PlansRoute
   '/product': typeof ProductRoute
   '/stablecoins': typeof StablecoinsRoute
-  '/dashboard/agent': typeof DashboardAgentRoute
-  '/dashboard/checklist': typeof DashboardChecklistRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/transactions': typeof DashboardTransactionsRoute
-  '/dashboard/users': typeof DashboardUsersRoute
-  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/dashboard/agent': typeof AuthenticatedDashboardAgentRoute
+  '/dashboard/checklist': typeof AuthenticatedDashboardChecklistRoute
+  '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
+  '/dashboard/transactions': typeof AuthenticatedDashboardTransactionsRoute
+  '/dashboard/users': typeof AuthenticatedDashboardUsersRoute
+  '/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -135,12 +141,12 @@ export interface FileRoutesByTo {
   '/plans': typeof PlansRoute
   '/product': typeof ProductRoute
   '/stablecoins': typeof StablecoinsRoute
-  '/dashboard/agent': typeof DashboardAgentRoute
-  '/dashboard/checklist': typeof DashboardChecklistRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/transactions': typeof DashboardTransactionsRoute
-  '/dashboard/users': typeof DashboardUsersRoute
-  '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/agent': typeof AuthenticatedDashboardAgentRoute
+  '/dashboard/checklist': typeof AuthenticatedDashboardChecklistRoute
+  '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
+  '/dashboard/transactions': typeof AuthenticatedDashboardTransactionsRoute
+  '/dashboard/users': typeof AuthenticatedDashboardUsersRoute
+  '/dashboard': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -148,18 +154,18 @@ export interface FileRoutesById {
   '/agent': typeof AgentRoute
   '/brand': typeof BrandRoute
   '/contact': typeof ContactRoute
-  '/dashboard': typeof DashboardRouteWithChildren
   '/faq': typeof FaqRoute
   '/merch': typeof MerchRoute
   '/plans': typeof PlansRoute
   '/product': typeof ProductRoute
   '/stablecoins': typeof StablecoinsRoute
-  '/dashboard/agent': typeof DashboardAgentRoute
-  '/dashboard/checklist': typeof DashboardChecklistRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/transactions': typeof DashboardTransactionsRoute
-  '/dashboard/users': typeof DashboardUsersRoute
-  '/dashboard/': typeof DashboardIndexRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
+  '/_authenticated/dashboard/agent': typeof AuthenticatedDashboardAgentRoute
+  '/_authenticated/dashboard/checklist': typeof AuthenticatedDashboardChecklistRoute
+  '/_authenticated/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
+  '/_authenticated/dashboard/transactions': typeof AuthenticatedDashboardTransactionsRoute
+  '/_authenticated/dashboard/users': typeof AuthenticatedDashboardUsersRoute
+  '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -168,12 +174,12 @@ export interface FileRouteTypes {
     | '/agent'
     | '/brand'
     | '/contact'
-    | '/dashboard'
     | '/faq'
     | '/merch'
     | '/plans'
     | '/product'
     | '/stablecoins'
+    | '/dashboard'
     | '/dashboard/agent'
     | '/dashboard/checklist'
     | '/dashboard/settings'
@@ -203,18 +209,18 @@ export interface FileRouteTypes {
     | '/agent'
     | '/brand'
     | '/contact'
-    | '/dashboard'
     | '/faq'
     | '/merch'
     | '/plans'
     | '/product'
     | '/stablecoins'
-    | '/dashboard/agent'
-    | '/dashboard/checklist'
-    | '/dashboard/settings'
-    | '/dashboard/transactions'
-    | '/dashboard/users'
-    | '/dashboard/'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/dashboard/agent'
+    | '/_authenticated/dashboard/checklist'
+    | '/_authenticated/dashboard/settings'
+    | '/_authenticated/dashboard/transactions'
+    | '/_authenticated/dashboard/users'
+    | '/_authenticated/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -222,12 +228,12 @@ export interface RootRouteChildren {
   AgentRoute: typeof AgentRoute
   BrandRoute: typeof BrandRoute
   ContactRoute: typeof ContactRoute
-  DashboardRoute: typeof DashboardRouteWithChildren
   FaqRoute: typeof FaqRoute
   MerchRoute: typeof MerchRoute
   PlansRoute: typeof PlansRoute
   ProductRoute: typeof ProductRoute
   StablecoinsRoute: typeof StablecoinsRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -258,13 +264,6 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -302,84 +301,94 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StablecoinsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/': {
-      id: '/dashboard/'
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/dashboard/': {
+      id: '/_authenticated/dashboard/'
       path: '/'
       fullPath: '/dashboard/'
-      preLoaderRoute: typeof DashboardIndexRouteImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
     }
-    '/dashboard/agent': {
-      id: '/dashboard/agent'
+    '/_authenticated/dashboard/agent': {
+      id: '/_authenticated/dashboard/agent'
       path: '/agent'
       fullPath: '/dashboard/agent'
-      preLoaderRoute: typeof DashboardAgentRouteImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof AuthenticatedDashboardAgentRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
     }
-    '/dashboard/checklist': {
-      id: '/dashboard/checklist'
+    '/_authenticated/dashboard/checklist': {
+      id: '/_authenticated/dashboard/checklist'
       path: '/checklist'
       fullPath: '/dashboard/checklist'
-      preLoaderRoute: typeof DashboardChecklistRouteImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof AuthenticatedDashboardChecklistRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
     }
-    '/dashboard/settings': {
-      id: '/dashboard/settings'
+    '/_authenticated/dashboard/settings': {
+      id: '/_authenticated/dashboard/settings'
       path: '/settings'
       fullPath: '/dashboard/settings'
-      preLoaderRoute: typeof DashboardSettingsRouteImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof AuthenticatedDashboardSettingsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
     }
-    '/dashboard/transactions': {
-      id: '/dashboard/transactions'
+    '/_authenticated/dashboard/transactions': {
+      id: '/_authenticated/dashboard/transactions'
       path: '/transactions'
       fullPath: '/dashboard/transactions'
-      preLoaderRoute: typeof DashboardTransactionsRouteImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof AuthenticatedDashboardTransactionsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
     }
-    '/dashboard/users': {
-      id: '/dashboard/users'
+    '/_authenticated/dashboard/users': {
+      id: '/_authenticated/dashboard/users'
       path: '/users'
       fullPath: '/dashboard/users'
-      preLoaderRoute: typeof DashboardUsersRouteImport
-      parentRoute: typeof DashboardRoute
+      preLoaderRoute: typeof AuthenticatedDashboardUsersRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
     }
   }
 }
 
-interface DashboardRouteChildren {
-  DashboardAgentRoute: typeof DashboardAgentRoute
-  DashboardChecklistRoute: typeof DashboardChecklistRoute
-  DashboardSettingsRoute: typeof DashboardSettingsRoute
-  DashboardTransactionsRoute: typeof DashboardTransactionsRoute
-  DashboardUsersRoute: typeof DashboardUsersRoute
-  DashboardIndexRoute: typeof DashboardIndexRoute
+interface AuthenticatedDashboardRouteChildren {
+  AuthenticatedDashboardAgentRoute: typeof AuthenticatedDashboardAgentRoute
+  AuthenticatedDashboardChecklistRoute: typeof AuthenticatedDashboardChecklistRoute
+  AuthenticatedDashboardSettingsRoute: typeof AuthenticatedDashboardSettingsRoute
+  AuthenticatedDashboardTransactionsRoute: typeof AuthenticatedDashboardTransactionsRoute
+  AuthenticatedDashboardUsersRoute: typeof AuthenticatedDashboardUsersRoute
+  AuthenticatedDashboardIndexRoute: typeof AuthenticatedDashboardIndexRoute
 }
 
-const DashboardRouteChildren: DashboardRouteChildren = {
-  DashboardAgentRoute: DashboardAgentRoute,
-  DashboardChecklistRoute: DashboardChecklistRoute,
-  DashboardSettingsRoute: DashboardSettingsRoute,
-  DashboardTransactionsRoute: DashboardTransactionsRoute,
-  DashboardUsersRoute: DashboardUsersRoute,
-  DashboardIndexRoute: DashboardIndexRoute,
-}
+const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
+  {
+    AuthenticatedDashboardAgentRoute: AuthenticatedDashboardAgentRoute,
+    AuthenticatedDashboardChecklistRoute: AuthenticatedDashboardChecklistRoute,
+    AuthenticatedDashboardSettingsRoute: AuthenticatedDashboardSettingsRoute,
+    AuthenticatedDashboardTransactionsRoute:
+      AuthenticatedDashboardTransactionsRoute,
+    AuthenticatedDashboardUsersRoute: AuthenticatedDashboardUsersRoute,
+    AuthenticatedDashboardIndexRoute: AuthenticatedDashboardIndexRoute,
+  }
 
-const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
-  DashboardRouteChildren,
-)
+const AuthenticatedDashboardRouteWithChildren =
+  AuthenticatedDashboardRoute._addFileChildren(
+    AuthenticatedDashboardRouteChildren,
+  )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgentRoute: AgentRoute,
   BrandRoute: BrandRoute,
   ContactRoute: ContactRoute,
-  DashboardRoute: DashboardRouteWithChildren,
   FaqRoute: FaqRoute,
   MerchRoute: MerchRoute,
   PlansRoute: PlansRoute,
   ProductRoute: ProductRoute,
   StablecoinsRoute: StablecoinsRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
