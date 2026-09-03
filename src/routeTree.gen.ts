@@ -25,7 +25,9 @@ import { Route as StablecoinsRouteImport } from './routes/stablecoins'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard.index'
 import { Route as AuthenticatedDashboardAgentRouteImport } from './routes/_authenticated/dashboard.agent'
+import { Route as AuthenticatedDashboardBookingsRouteImport } from './routes/_authenticated/dashboard.bookings'
 import { Route as AuthenticatedDashboardChecklistRouteImport } from './routes/_authenticated/dashboard.checklist'
+import { Route as AuthenticatedDashboardClientsRouteImport } from './routes/_authenticated/dashboard.clients'
 import { Route as AuthenticatedDashboardSettingsRouteImport } from './routes/_authenticated/dashboard.settings'
 import { Route as AuthenticatedDashboardTransactionsRouteImport } from './routes/_authenticated/dashboard.transactions'
 import { Route as AuthenticatedDashboardUsersRouteImport } from './routes/_authenticated/dashboard.users'
@@ -111,10 +113,22 @@ const AuthenticatedDashboardAgentRoute =
     path: '/agent',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
+const AuthenticatedDashboardBookingsRoute =
+  AuthenticatedDashboardBookingsRouteImport.update({
+    id: '/bookings',
+    path: '/bookings',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 const AuthenticatedDashboardChecklistRoute =
   AuthenticatedDashboardChecklistRouteImport.update({
     id: '/checklist',
     path: '/checklist',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedDashboardClientsRoute =
+  AuthenticatedDashboardClientsRouteImport.update({
+    id: '/clients',
+    path: '/clients',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
 const AuthenticatedDashboardSettingsRoute =
@@ -151,7 +165,9 @@ export interface FileRoutesByFullPath {
   '/stablecoins': typeof StablecoinsRoute
   '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/dashboard/agent': typeof AuthenticatedDashboardAgentRoute
+  '/dashboard/bookings': typeof AuthenticatedDashboardBookingsRoute
   '/dashboard/checklist': typeof AuthenticatedDashboardChecklistRoute
+  '/dashboard/clients': typeof AuthenticatedDashboardClientsRoute
   '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/dashboard/transactions': typeof AuthenticatedDashboardTransactionsRoute
   '/dashboard/users': typeof AuthenticatedDashboardUsersRoute
@@ -171,7 +187,9 @@ export interface FileRoutesByTo {
   '/product': typeof ProductRoute
   '/stablecoins': typeof StablecoinsRoute
   '/dashboard/agent': typeof AuthenticatedDashboardAgentRoute
+  '/dashboard/bookings': typeof AuthenticatedDashboardBookingsRoute
   '/dashboard/checklist': typeof AuthenticatedDashboardChecklistRoute
+  '/dashboard/clients': typeof AuthenticatedDashboardClientsRoute
   '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/dashboard/transactions': typeof AuthenticatedDashboardTransactionsRoute
   '/dashboard/users': typeof AuthenticatedDashboardUsersRoute
@@ -194,7 +212,9 @@ export interface FileRoutesById {
   '/stablecoins': typeof StablecoinsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/_authenticated/dashboard/agent': typeof AuthenticatedDashboardAgentRoute
+  '/_authenticated/dashboard/bookings': typeof AuthenticatedDashboardBookingsRoute
   '/_authenticated/dashboard/checklist': typeof AuthenticatedDashboardChecklistRoute
+  '/_authenticated/dashboard/clients': typeof AuthenticatedDashboardClientsRoute
   '/_authenticated/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/_authenticated/dashboard/transactions': typeof AuthenticatedDashboardTransactionsRoute
   '/_authenticated/dashboard/users': typeof AuthenticatedDashboardUsersRoute
@@ -217,7 +237,9 @@ export interface FileRouteTypes {
     | '/stablecoins'
     | '/dashboard'
     | '/dashboard/agent'
+    | '/dashboard/bookings'
     | '/dashboard/checklist'
+    | '/dashboard/clients'
     | '/dashboard/settings'
     | '/dashboard/transactions'
     | '/dashboard/users'
@@ -237,7 +259,9 @@ export interface FileRouteTypes {
     | '/product'
     | '/stablecoins'
     | '/dashboard/agent'
+    | '/dashboard/bookings'
     | '/dashboard/checklist'
+    | '/dashboard/clients'
     | '/dashboard/settings'
     | '/dashboard/transactions'
     | '/dashboard/users'
@@ -259,7 +283,9 @@ export interface FileRouteTypes {
     | '/stablecoins'
     | '/_authenticated/dashboard'
     | '/_authenticated/dashboard/agent'
+    | '/_authenticated/dashboard/bookings'
     | '/_authenticated/dashboard/checklist'
+    | '/_authenticated/dashboard/clients'
     | '/_authenticated/dashboard/settings'
     | '/_authenticated/dashboard/transactions'
     | '/_authenticated/dashboard/users'
@@ -396,11 +422,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardAgentRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/dashboard/bookings': {
+      id: '/_authenticated/dashboard/bookings'
+      path: '/bookings'
+      fullPath: '/dashboard/bookings'
+      preLoaderRoute: typeof AuthenticatedDashboardBookingsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
     '/_authenticated/dashboard/checklist': {
       id: '/_authenticated/dashboard/checklist'
       path: '/checklist'
       fullPath: '/dashboard/checklist'
       preLoaderRoute: typeof AuthenticatedDashboardChecklistRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
+    '/_authenticated/dashboard/clients': {
+      id: '/_authenticated/dashboard/clients'
+      path: '/clients'
+      fullPath: '/dashboard/clients'
+      preLoaderRoute: typeof AuthenticatedDashboardClientsRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
     '/_authenticated/dashboard/settings': {
@@ -429,7 +469,9 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedDashboardRouteChildren {
   AuthenticatedDashboardAgentRoute: typeof AuthenticatedDashboardAgentRoute
+  AuthenticatedDashboardBookingsRoute: typeof AuthenticatedDashboardBookingsRoute
   AuthenticatedDashboardChecklistRoute: typeof AuthenticatedDashboardChecklistRoute
+  AuthenticatedDashboardClientsRoute: typeof AuthenticatedDashboardClientsRoute
   AuthenticatedDashboardSettingsRoute: typeof AuthenticatedDashboardSettingsRoute
   AuthenticatedDashboardTransactionsRoute: typeof AuthenticatedDashboardTransactionsRoute
   AuthenticatedDashboardUsersRoute: typeof AuthenticatedDashboardUsersRoute
@@ -439,7 +481,9 @@ interface AuthenticatedDashboardRouteChildren {
 const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
   {
     AuthenticatedDashboardAgentRoute: AuthenticatedDashboardAgentRoute,
+    AuthenticatedDashboardBookingsRoute: AuthenticatedDashboardBookingsRoute,
     AuthenticatedDashboardChecklistRoute: AuthenticatedDashboardChecklistRoute,
+    AuthenticatedDashboardClientsRoute: AuthenticatedDashboardClientsRoute,
     AuthenticatedDashboardSettingsRoute: AuthenticatedDashboardSettingsRoute,
     AuthenticatedDashboardTransactionsRoute:
       AuthenticatedDashboardTransactionsRoute,
