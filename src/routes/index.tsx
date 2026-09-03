@@ -65,9 +65,10 @@ function Index() {
           </div>
 
           <h1 className="hero-title">
-            The chat till, <span className="serif italic">alwayzz</span>
+            The chat till, <span className="serif italic">always</span>
             <sup className="reg">®</sup> settled.
           </h1>
+
 
           <p className="hero-sub">
             One chat job → a user-authorized cNGN or USA₮ send to an independent MiniPay wallet.
