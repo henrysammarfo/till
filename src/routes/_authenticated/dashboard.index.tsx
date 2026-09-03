@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, Coins, Fuel, Repeat, TrendingUp, Users } from "lucide-react";
 
-export const Route = createFileRoute("/dashboard/")({
+export const Route = createFileRoute("/_authenticated/dashboard/")({
   head: () => ({
     meta: [
       { title: "Till overview — verified users, tagged volume and returning activity | TILL®" },

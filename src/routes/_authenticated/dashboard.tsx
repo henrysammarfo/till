@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { Logo } from "@/components/Logo";
 
-export const Route = createFileRoute("/dashboard")({
+export const Route = createFileRoute("/_authenticated/dashboard")({
   component: DashboardLayout,
 });
 

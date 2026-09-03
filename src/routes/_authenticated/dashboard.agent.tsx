@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Activity, CircleCheck, ExternalLink, KeyRound, Zap } from "lucide-react";
 
-export const Route = createFileRoute("/dashboard/agent")({
+export const Route = createFileRoute("/_authenticated/dashboard/agent")({
   head: () => ({
     meta: [
       { title: "Agent record — ERC-8004 identity and attribution status | TILL®" },

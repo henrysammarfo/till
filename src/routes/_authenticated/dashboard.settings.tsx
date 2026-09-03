@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Save } from "lucide-react";
 
-export const Route = createFileRoute("/dashboard/settings")({
+export const Route = createFileRoute("/_authenticated/dashboard/settings")({
   head: () => ({
     meta: [
       { title: "Till settings — policy, assets and limits | TILL®" },

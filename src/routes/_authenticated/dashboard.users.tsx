@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ShieldCheck, UserCheck, UserPlus } from "lucide-react";
 
-export const Route = createFileRoute("/dashboard/users")({
+export const Route = createFileRoute("/_authenticated/dashboard/users")({
   head: () => ({
     meta: [
       { title: "Users — verified authorisers and returning activity | TILL®" },
