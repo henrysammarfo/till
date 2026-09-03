@@ -19,6 +19,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as MerchRouteImport } from './routes/merch'
 import { Route as PlansRouteImport } from './routes/plans'
+import { Route as PortalRouteImport } from './routes/portal'
 import { Route as ProductRouteImport } from './routes/product'
 import { Route as StablecoinsRouteImport } from './routes/stablecoins'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
@@ -76,6 +77,11 @@ const MerchRoute = MerchRouteImport.update({
 const PlansRoute = PlansRouteImport.update({
   id: '/plans',
   path: '/plans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortalRoute = PortalRouteImport.update({
+  id: '/portal',
+  path: '/portal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductRoute = ProductRouteImport.update({
@@ -140,6 +146,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/merch': typeof MerchRoute
   '/plans': typeof PlansRoute
+  '/portal': typeof PortalRoute
   '/product': typeof ProductRoute
   '/stablecoins': typeof StablecoinsRoute
   '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
@@ -160,6 +167,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/merch': typeof MerchRoute
   '/plans': typeof PlansRoute
+  '/portal': typeof PortalRoute
   '/product': typeof ProductRoute
   '/stablecoins': typeof StablecoinsRoute
   '/dashboard/agent': typeof AuthenticatedDashboardAgentRoute
@@ -181,6 +189,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/merch': typeof MerchRoute
   '/plans': typeof PlansRoute
+  '/portal': typeof PortalRoute
   '/product': typeof ProductRoute
   '/stablecoins': typeof StablecoinsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
@@ -203,6 +212,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/merch'
     | '/plans'
+    | '/portal'
     | '/product'
     | '/stablecoins'
     | '/dashboard'
@@ -223,6 +233,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/merch'
     | '/plans'
+    | '/portal'
     | '/product'
     | '/stablecoins'
     | '/dashboard/agent'
@@ -243,6 +254,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/merch'
     | '/plans'
+    | '/portal'
     | '/product'
     | '/stablecoins'
     | '/_authenticated/dashboard'
@@ -265,6 +277,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   MerchRoute: typeof MerchRoute
   PlansRoute: typeof PlansRoute
+  PortalRoute: typeof PortalRoute
   ProductRoute: typeof ProductRoute
   StablecoinsRoute: typeof StablecoinsRoute
 }
@@ -339,6 +352,13 @@ declare module '@tanstack/react-router' {
       path: '/plans'
       fullPath: '/plans'
       preLoaderRoute: typeof PlansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portal': {
+      id: '/portal'
+      path: '/portal'
+      fullPath: '/portal'
+      preLoaderRoute: typeof PortalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/product': {
@@ -454,6 +474,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   MerchRoute: MerchRoute,
   PlansRoute: PlansRoute,
+  PortalRoute: PortalRoute,
   ProductRoute: ProductRoute,
   StablecoinsRoute: StablecoinsRoute,
 }
