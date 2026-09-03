@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AgentRouteImport } from './routes/agent'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as BookRouteImport } from './routes/book'
 import { Route as BrandRouteImport } from './routes/brand'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqRouteImport } from './routes/faq'
@@ -39,6 +41,16 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const AgentRoute = AgentRouteImport.update({
   id: '/agent',
   path: '/agent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BookRoute = BookRouteImport.update({
+  id: '/book',
+  path: '/book',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrandRoute = BrandRouteImport.update({
@@ -121,6 +133,8 @@ const AuthenticatedDashboardUsersRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agent': typeof AgentRoute
+  '/auth': typeof AuthRoute
+  '/book': typeof BookRoute
   '/brand': typeof BrandRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
@@ -139,6 +153,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agent': typeof AgentRoute
+  '/auth': typeof AuthRoute
+  '/book': typeof BookRoute
   '/brand': typeof BrandRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
@@ -158,6 +174,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/agent': typeof AgentRoute
+  '/auth': typeof AuthRoute
+  '/book': typeof BookRoute
   '/brand': typeof BrandRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
@@ -178,6 +196,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/agent'
+    | '/auth'
+    | '/book'
     | '/brand'
     | '/contact'
     | '/faq'
@@ -196,6 +216,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/agent'
+    | '/auth'
+    | '/book'
     | '/brand'
     | '/contact'
     | '/faq'
@@ -214,6 +236,8 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/agent'
+    | '/auth'
+    | '/book'
     | '/brand'
     | '/contact'
     | '/faq'
@@ -234,6 +258,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AgentRoute: typeof AgentRoute
+  AuthRoute: typeof AuthRoute
+  BookRoute: typeof BookRoute
   BrandRoute: typeof BrandRoute
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
@@ -264,6 +290,20 @@ declare module '@tanstack/react-router' {
       path: '/agent'
       fullPath: '/agent'
       preLoaderRoute: typeof AgentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/book': {
+      id: '/book'
+      path: '/book'
+      fullPath: '/book'
+      preLoaderRoute: typeof BookRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brand': {
@@ -407,6 +447,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AgentRoute: AgentRoute,
+  AuthRoute: AuthRoute,
+  BookRoute: BookRoute,
   BrandRoute: BrandRoute,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
