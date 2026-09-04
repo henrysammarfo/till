@@ -72,7 +72,7 @@ function ProjectsPage() {
   });
 
   const patch = useMutation({
-    mutationFn: async ({ id, values }: { id: string; values: Record<string, unknown> }) => {
+    mutationFn: async ({ id, values }: { id: string; values: { stage?: string; status?: string; progress?: number } }) => {
       const { error } = await supabase.from("projects").update(values).eq("id", id);
       if (error) throw error;
     },
