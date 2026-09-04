@@ -36,6 +36,31 @@ const recent = [
 ];
 
 function Overview() {
+  const studio = useQuery({
+    queryKey: ["studio-overview"],
+    queryFn: async () => {
+      const [bookings, pending, clients, projects] = await Promise.all([
+        supabase.from("bookings").select("id", { count: "exact", head: true }),
+        supabase.from("bookings").select("id", { count: "exact", head: true }).eq("status", "pending"),
+        supabase.from("clients").select("id", { count: "exact", head: true }),
+        supabase.from("projects").select("id, status, progress"),
+      ]);
+      const rows = projects.data ?? [];
+      return {
+        bookings: bookings.count ?? 0,
+        pending: pending.count ?? 0,
+        clients: clients.count ?? 0,
+        projects: rows.length,
+        atRisk: rows.filter((p) => p.status !== "on_track" && p.status !== "done").length,
+        avgProgress: rows.length
+          ? Math.round(rows.reduce((a, p) => a + p.progress, 0) / rows.length)
+          : 0,
+      };
+    },
+  });
+
+  const s = studio.data;
+
   return (
     <>
       <header className="dash-head">
@@ -57,6 +82,42 @@ function Overview() {
 
       <div className="dash-body">
         <div className="grid grid-4">
+          <div className="stat">
+            <div className="stat-label">
+              <CalendarClock size={14} strokeWidth={1.9} />
+              Booking requests
+            </div>
+            <div className="num">{s?.bookings ?? "—"}</div>
+            <div className="delta">{s ? `${s.pending} awaiting reply` : "loading"}</div>
+          </div>
+          <div className="stat">
+            <div className="stat-label">
+              <Contact size={14} strokeWidth={1.9} />
+              Clients
+            </div>
+            <div className="num">{s?.clients ?? "—"}</div>
+            <div className="delta delta-flat">portal codes issued</div>
+          </div>
+          <div className="stat">
+            <div className="stat-label">
+              <Briefcase size={14} strokeWidth={1.9} />
+              Live projects
+            </div>
+            <div className="num">{s?.projects ?? "—"}</div>
+            <div className="delta delta-flat">{s ? `${s.atRisk} need attention` : "loading"}</div>
+          </div>
+          <div className="stat">
+            <div className="stat-label">
+              <TrendingUp size={14} strokeWidth={1.9} />
+              Avg. delivery
+            </div>
+            <div className="num">{s ? `${s.avgProgress}%` : "—"}</div>
+            <div className="delta delta-flat">across open projects</div>
+          </div>
+        </div>
+
+        <div className="grid grid-4">
+
           {stats.map((s) => (
             <div className="stat" key={s.label}>
               <div className="stat-label">
