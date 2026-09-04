@@ -2,40 +2,31 @@
 
 **Updated:** 2026-09-04  
 **Branch:** `cursor/till-full-stack-8d41`  
-**Plan:** Option A full stack (marketing + multi-tenant Studio + live Telegram till + Celo mainnet)
+**Plan:** Option A full stack
 
-## Product
+## Shipped in this branch
 
-TILL is a Telegram payment till for MiniPay/Celo: counterparty jobs settle in cNGN (direct EIP-3009) and stablecoin x402 paths, every user-facing tx ERC-8021 attribution-tagged, agent identity on ERC-8004.
+- Secrets hygiene (`.env` untracked, `.env.example`)
+- Memory pack + Cursor rules/skills + corrected `TILL_BIBLE.md`
+- Multi-tenant Supabase migration (`tenants`, till jobs/txs, attribution_events, agent_config)
+- HttpOnly cookie session mirror + production memory auth storage (no localStorage outside Lovable preview)
+- Live Telegram webhook route `/api/telegram/webhook`
+- Celo modules: attribution (ERC-8021), EIP-3009 settle, fee abstraction adapters, MiniPay links
+- x402 facilitator client + `/api/x402/supported` (USA₮ **not** in live `/supported`)
+- Studio dashboards bound to live till tables (mocks removed)
+- ERC-8004 registration file at `public/agent/registration.json`
+- Unit tests + smoke scripts; `bun run build` clean
 
-## Repo reality (this session)
+## Blockers (need user env)
 
-| Layer | Status |
-|---|---|
-| Marketing site | Present (TanStack Start + TILL brand) |
-| Studio dashboard | Present; **mocks being removed** → live till tables |
-| Multitenancy | **In progress** — tenants + RLS |
-| Sessions | Migrating off localStorage → HttpOnly cookies |
-| Telegram / Celo runtime | **Building** under `src/server/**` |
-| Memory / rules / skills | **Creating** |
+- `TELEGRAM_BOT_TOKEN` + webhook secret
+- `SUPABASE_SERVICE_ROLE_KEY` + apply migration
+- `CELO_AGENT_PRIVATE_KEY`, `CELO_ATTRIBUTION_TAG`, `CELO_AGENT_WALLET` (after contest register)
+- `CNGN_TOKEN_ADDRESS` / `USAT_TOKEN_ADDRESS` once verified
+- `X402_API_KEY` for settle
+- New TinyFish key/credits
+- AgentRouter reachable network (this host WAF-blocked)
 
-## Contest
+## Security
 
-- Hackathon: Agents at Work · deadline **2026-09-14 09:00 GMT** · mainnet only
-- Primary track: `real-world-adoption` / Best Stablecoin Adoption
-- Attribution: ERC-8021 via `@celo/attribution-tags`
-- Agent identity: ERC-8004 (separate from attribution)
-
-## Security posture
-
-Hardening + threat model + residual risk documented in `memory/THREAT_MODEL.md`.  
-**We do not claim unhackable.**
-
-## Blockers (awaiting env upload)
-
-- `TELEGRAM_BOT_TOKEN`
-- `SUPABASE_SERVICE_ROLE_KEY`
-- `CELO_AGENT_PRIVATE_KEY` / agent wallet + `CELO_ATTRIBUTION_TAG`
-- `X402_API_KEY`
-- New `TINYFISH_API_KEY` (prior key had 0 credits)
-- Token addresses for cNGN / USA₮ verified into FACT_CHECK before live transfers
+Residual risk only — **not unhackable**. See `memory/THREAT_MODEL.md`.

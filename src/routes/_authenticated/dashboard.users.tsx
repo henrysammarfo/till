@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { ShieldCheck, UserCheck, UserPlus } from "lucide-react";
+import { getStudioOverview, getStudioTransactions } from "@/lib/studio.functions";
 
 export const Route = createFileRoute("/_authenticated/dashboard/users")({
   head: () => ({
@@ -11,22 +13,32 @@ export const Route = createFileRoute("/_authenticated/dashboard/users")({
           "Who counts: authorisers with pre-Aug-28 Celo history, independence status, active days and preferred settlement asset.",
       },
       { property: "og:title", content: "TILL users" },
-      { property: "og:description", content: "Verified authorisers, independence and return rate." },
+      {
+        property: "og:description",
+        content: "Verified authorisers, independence and return rate.",
+      },
     ],
   }),
   component: UsersPage,
 });
 
-const users = [
-  ["0x7f2c…c41d", "Jun 2026", "Independent", "6", "cNGN"],
-  ["0x18ab…9f04", "Mar 2026", "Independent", "4", "cNGN"],
-  ["0x44de…21bb", "Jan 2026", "Independent", "3", "USA₮"],
-  ["0x9c10…7a3f", "Aug 2026", "Pending check", "1", "cNGN"],
-  ["0xa2f8…5512", "Feb 2026", "Independent", "5", "cNGN"],
-  ["0x3ba9…ee71", "Nov 2025", "Independent", "2", "USDC"],
-];
-
 function UsersPage() {
+  const overview = useQuery({ queryKey: ["till-overview"], queryFn: () => getStudioOverview() });
+  const txs = useQuery({ queryKey: ["till-transactions"], queryFn: () => getStudioTransactions() });
+
+  const byWallet = new Map<string, { count: number; asset: string }>();
+  for (const r of txs.data?.rows ?? []) {
+    const cur = byWallet.get(r.wallet) ?? { count: 0, asset: r.asset };
+    cur.count += 1;
+    cur.asset = r.asset;
+    byWallet.set(r.wallet, cur);
+  }
+  const users = [...byWallet.entries()].map(([wallet, meta]) => ({
+    wallet,
+    days: String(meta.count),
+    asset: meta.asset,
+  }));
+
   return (
     <>
       <header className="dash-head">
@@ -39,51 +51,72 @@ function UsersPage() {
           </h1>
         </div>
         <span className="badge badge-ok">
-          <ShieldCheck size={12} /> No first-funded wallets
+          <ShieldCheck size={12} /> Independence policy enforced
         </span>
       </header>
 
       <div className="dash-body">
         <div className="grid grid-3">
           {[
-            { icon: UserCheck, l: "Verified users", v: "412", d: "Pre-Aug-28 Celo history" },
-            { icon: UserPlus, l: "New this week", v: "38", d: "Seeded via Telegram groups" },
-            { icon: ShieldCheck, l: "Returning day 2+", v: "239", d: "58% of verified users" },
+            {
+              icon: UserCheck,
+              l: "Verified users",
+              v: String(overview.data?.verifiedUsers ?? 0),
+              d: "Distinct EIP-3009 authorisers",
+            },
+            {
+              icon: UserPlus,
+              l: "Tagged txs",
+              v: String(overview.data?.taggedTxs ?? 0),
+              d: "ERC-8021 verified",
+            },
+            {
+              icon: ShieldCheck,
+              l: "Returning",
+              v: `${overview.data?.returningPct ?? 0}%`,
+              d: "2+ distinct days",
+            },
           ].map((s) => (
             <div className="stat" key={s.l}>
               <div className="stat-label">
                 <s.icon size={14} strokeWidth={1.9} />
                 {s.l}
               </div>
-              <div className="num">{s.v}</div>
+              <div className="num" style={{ fontSize: 28 }}>
+                {s.v}
+              </div>
               <div className="delta delta-flat">{s.d}</div>
             </div>
           ))}
         </div>
 
-        <div className="card scroll-x">
+        <div className="card scroll-x" style={{ marginTop: 16 }}>
           <table className="table">
             <thead>
               <tr>
                 <th>Wallet</th>
-                <th>First Celo activity</th>
-                <th>Independence</th>
-                <th>Active days</th>
-                <th>Preferred asset</th>
+                <th>Settlements</th>
+                <th>Last asset</th>
               </tr>
             </thead>
             <tbody>
-              {users.map((u) => (
-                <tr key={u[0]}>
-                  <td className="mono">{u[0]}</td>
-                  <td>{u[1]}</td>
-                  <td>
-                    <span className={`badge${u[2] === "Independent" ? " badge-ok" : ""}`}>{u[2]}</span>
+              {users.length === 0 ? (
+                <tr>
+                  <td colSpan={3} className="body-sm">
+                    No live authorisers yet. Mocks removed.
                   </td>
-                  <td>{u[3]}</td>
-                  <td>{u[4]}</td>
                 </tr>
-              ))}
+              ) : (
+                users.map((u) => (
+                  <tr key={u.wallet}>
+                    <td>
+                      {u.wallet.slice(0, 6)}…{u.wallet.slice(-4)}
+                    </td>
+                    <td>{u.days}</td>
+                    <td>{u.asset}</td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { Circle, CircleCheck } from "lucide-react";
+import { getStudioAgentRecord } from "@/lib/studio.functions";
 
 export const Route = createFileRoute("/_authenticated/dashboard/checklist")({
   head: () => ({
@@ -11,27 +13,14 @@ export const Route = createFileRoute("/_authenticated/dashboard/checklist")({
           "The TILL build checklist: registration, tagged smoke transaction, cNGN path, fee abstraction, x402 microservice and publication.",
       },
       { property: "og:title", content: "TILL build checklist" },
-      { property: "og:description", content: "What is shipped and what is left before submission." },
+      {
+        property: "og:description",
+        content: "What is shipped and what is left before submission.",
+      },
     ],
   }),
   component: Checklist,
 });
-
-const today = [
-  ["Public GitHub repository", true],
-  ["ERC-8004 identity + agent wallet", true],
-  ["Register on celobuilders and save tag", true],
-  ["First tagged smoke transaction", true],
-];
-
-const toSubmission = [
-  ["Telegram till + cNGN settlement path", true],
-  ["Fee abstraction + MiniPay authorisers", true],
-  ["USA₮ / USDC x402 microservice", false],
-  ["AskBots round 1 and round 2", false],
-  ["cPay opt-in feedback loop", false],
-  ["Publish and announce", false],
-];
 
 function Group({ title, items }: { title: string; items: (string | boolean)[][] }) {
   return (
@@ -54,6 +43,33 @@ function Group({ title, items }: { title: string; items: (string | boolean)[][] 
 }
 
 function Checklist() {
+  const agent = useQuery({ queryKey: ["till-agent"], queryFn: () => getStudioAgentRecord() });
+  const tagSet = Boolean(
+    agent.data?.fields.find((f) => f[0] === "Attribution tag")?.[1] &&
+    agent.data?.fields.find((f) => f[0] === "Attribution tag")?.[1] !== "unset",
+  );
+  const walletSet = Boolean(
+    agent.data?.fields.find((f) => f[0] === "Agent wallet")?.[1] &&
+    agent.data?.fields.find((f) => f[0] === "Agent wallet")?.[1] !== "unset",
+  );
+  const verified = (agent.data?.attributionVerifiedCount ?? 0) > 0;
+
+  const today: (string | boolean)[][] = [
+    ["Public GitHub repository", true],
+    ["ERC-8004 registration file published", true],
+    ["Agent wallet + attribution tag in env/agent_config", tagSet && walletSet],
+    ["First tagged smoke verifyTx", verified],
+  ];
+
+  const toSubmission: (string | boolean)[][] = [
+    ["Telegram till webhook + structured intent", true],
+    ["EIP-3009 settle + ERC-8021 attribution module", true],
+    ["Fee abstraction adapters (USDC/USDT)", true],
+    ["x402 facilitator probe (USA₮ gated by /supported)", true],
+    ["Apply multitenant migration + service role", false],
+    ["Contest register day-0 + AskBots / cPay", false],
+  ];
+
   const done = [...today, ...toSubmission].filter((i) => i[1]).length;
   const total = today.length + toSubmission.length;
 
@@ -62,38 +78,20 @@ function Checklist() {
       <header className="dash-head">
         <div>
           <p className="eyebrow" style={{ margin: 0 }}>
-            Delivery
+            Shipping
           </p>
           <h1 className="h3" style={{ margin: "6px 0 0", fontSize: 22 }}>
             Build checklist
           </h1>
         </div>
-        <span className="badge badge-dark">
-          {done} / {total} shipped
+        <span className="badge">
+          {done}/{total} complete
         </span>
       </header>
 
-      <div className="dash-body">
-        <div className="grid grid-2" style={{ alignItems: "start" }}>
-          <Group title="Day zero" items={today} />
-          <Group title="To 14 Sep 2026" items={toSubmission} />
-        </div>
-
-        <div className="card" style={{ background: "var(--text)", borderColor: "var(--text)" }}>
-          <h2 className="h3" style={{ color: "#fff" }}>
-            Demo beat · 60 seconds
-          </h2>
-          <ol
-            className="body-sm"
-            style={{ color: "rgba(255,255,255,0.66)", paddingLeft: 18, margin: "10px 0 0", lineHeight: 2 }}
-          >
-            <li>Dune shows the tagged wallet non-zero.</li>
-            <li>A pre-Aug-28 MiniPay user pays through the TILL chat.</li>
-            <li>Celoscan shows the attribution suffix on that transaction.</li>
-            <li>Fee abstraction and the x402 receipt flash on screen.</li>
-            <li>The same user returns on day two.</li>
-          </ol>
-        </div>
+      <div className="dash-body grid grid-2">
+        <Group title="Foundation" items={today} />
+        <Group title="To submission" items={toSubmission} />
       </div>
     </>
   );

@@ -2,16 +2,34 @@ import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { LogIn, ShieldCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { completeStudioSignIn } from "@/integrations/supabase/studio-session";
 import { lovable } from "@/integrations/lovable/index";
 import { Logo } from "@/components/Logo";
+
+async function mirrorSessionCookies() {
+  const { data } = await supabase.auth.getSession();
+  if (!data.session) return;
+  await completeStudioSignIn({
+    data: {
+      access_token: data.session.access_token,
+      refresh_token: data.session.refresh_token,
+    },
+  });
+}
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
       { title: "Team sign in — TILL Studio" },
-      { name: "description", content: "Sign in to the TILL Studio admin to manage bookings, clients and projects." },
+      {
+        name: "description",
+        content: "Sign in to the TILL Studio admin to manage bookings, clients and projects.",
+      },
       { property: "og:title", content: "Team sign in — TILL Studio" },
-      { property: "og:description", content: "Admin access for bookings, clients and project delivery." },
+      {
+        property: "og:description",
+        content: "Admin access for bookings, clients and project delivery.",
+      },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -36,7 +54,14 @@ function AuthPage() {
     if (mode === "in") {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) setError(error.message);
-      else navigate({ to: "/dashboard" });
+      else {
+        try {
+          await mirrorSessionCookies();
+          navigate({ to: "/dashboard" });
+        } catch (e) {
+          setError(e instanceof Error ? e.message : "Session cookie hydrate failed");
+        }
+      }
     } else {
       const { error } = await supabase.auth.signUp({
         email,
@@ -49,8 +74,14 @@ function AuthPage() {
       if (error) setError(error.message);
       else {
         const { data } = await supabase.auth.getSession();
-        if (data.session) navigate({ to: "/dashboard" });
-        else setNotice("Check your inbox to confirm the address, then sign in.");
+        if (data.session) {
+          try {
+            await mirrorSessionCookies();
+            navigate({ to: "/dashboard" });
+          } catch (e) {
+            setError(e instanceof Error ? e.message : "Session cookie hydrate failed");
+          }
+        } else setNotice("Check your inbox to confirm the address, then sign in.");
       }
     }
     setBusy(false);
@@ -66,7 +97,12 @@ function AuthPage() {
       return;
     }
     if (result.redirected) return;
-    navigate({ to: "/dashboard" });
+    try {
+      await mirrorSessionCookies();
+      navigate({ to: "/dashboard" });
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Session cookie hydrate failed");
+    }
   }
 
   return (

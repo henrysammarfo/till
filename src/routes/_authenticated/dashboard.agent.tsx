@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { Activity, CircleCheck, ExternalLink, KeyRound, Zap } from "lucide-react";
+import { getStudioAgentRecord } from "@/lib/studio.functions";
 
 export const Route = createFileRoute("/_authenticated/dashboard/agent")({
   head: () => ({
@@ -17,24 +19,29 @@ export const Route = createFileRoute("/_authenticated/dashboard/agent")({
   component: AgentRecord,
 });
 
-const record = [
-  ["Agent name", "till"],
-  ["Primary track", "real-world-adoption"],
-  ["Network", "celo-mainnet"],
-  ["Attribution tag", "celo_9f31ab77c204"],
-  ["Agent wallet", "0x7f2c9a41bd0e5512aa77c3410099ee21bb44dec1"],
-  ["ERC-8004 record", "8004scan.io/agent/till"],
-  ["Repository", "github.com/till-agent/till"],
-  ["Telegram", "@tillagent"],
-];
-
-const declared = [
-  ["Operator hot wallet", "0x51aa…9c02", "Excluded from user counts"],
-  ["Relayer", "0xbe14…7731", "Pays gas, never an authoriser"],
-  ["Till contract", "0x0cd7…41a8", "Own contract, declared"],
-];
-
 function AgentRecord() {
+  const agent = useQuery({
+    queryKey: ["till-agent"],
+    queryFn: () => getStudioAgentRecord(),
+  });
+  const x402 = useQuery({
+    queryKey: ["x402-caps"],
+    queryFn: async () => {
+      const res = await fetch("/api/x402/supported");
+      if (!res.ok) throw new Error(`x402 probe failed: ${res.status}`);
+      return res.json() as Promise<{
+        facilitator: string;
+        usatSupportedByFacilitator: boolean;
+        usdc: string;
+        usdt: string;
+      }>;
+    },
+    retry: 1,
+  });
+
+  const fields = agent.data?.fields ?? [];
+  const verifyCount = agent.data?.attributionVerifiedCount ?? 0;
+
   return (
     <>
       <header className="dash-head">
@@ -46,7 +53,12 @@ function AgentRecord() {
             Agent record
           </h1>
         </div>
-        <a href="https://8004scan.io" target="_blank" rel="noreferrer" className="pill">
+        <a
+          href={fields.find((f) => f[0] === "ERC-8004 record")?.[1] || "https://8004scan.io"}
+          target="_blank"
+          rel="noreferrer"
+          className="pill"
+        >
           View on 8004scan <ExternalLink size={14} />
         </a>
       </header>
@@ -54,9 +66,28 @@ function AgentRecord() {
       <div className="dash-body">
         <div className="grid grid-3">
           {[
-            { icon: KeyRound, l: "Registration", v: "Complete", d: "Registered day 0" },
-            { icon: CircleCheck, l: "verifyTx", v: "Passed", d: "First tagged send verified" },
-            { icon: Zap, l: "x402 service", v: "Healthy", d: "Quote p95 · 340ms" },
+            {
+              icon: KeyRound,
+              l: "Registration",
+              v: agent.data?.ready ? "Configured" : "Pending",
+              d: "agent_config + env",
+            },
+            {
+              icon: CircleCheck,
+              l: "verifyTx events",
+              v: String(verifyCount),
+              d: "ERC-8021 verified settlements",
+            },
+            {
+              icon: Zap,
+              l: "x402 service",
+              v: x402.isError ? "Error" : x402.data ? "Reachable" : "…",
+              d: x402.data
+                ? `USA₮ facilitator support: ${x402.data.usatSupportedByFacilitator ? "yes" : "no"}`
+                : x402.isError
+                  ? "Check X402 facilitator"
+                  : "probing api.x402.celo.org",
+            },
           ].map((s) => (
             <div className="stat" key={s.l}>
               <div className="stat-label">
@@ -71,67 +102,56 @@ function AgentRecord() {
           ))}
         </div>
 
-        <div className="grid grid-2" style={{ alignItems: "start" }}>
+        <div className="grid grid-2" style={{ alignItems: "start", marginTop: 24 }}>
           <div className="card scroll-x">
             <h2 className="h3">Registry fields</h2>
             <table className="table" style={{ marginTop: 12 }}>
               <tbody>
-                {record.map(([k, v]) => (
-                  <tr key={k}>
-                    <td style={{ color: "var(--muted)" }}>{k}</td>
-                    <td className="mono" style={{ textAlign: "right" }}>
-                      {v}
+                {fields.length === 0 ? (
+                  <tr>
+                    <td className="body-sm">
+                      No agent_config row yet — complete studio sign-in after migration.
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  fields.map(([k, v]) => (
+                    <tr key={k}>
+                      <td>{k}</td>
+                      <td>
+                        <code>{v}</code>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
 
-          <div className="card scroll-x">
-            <h2 className="h3">Declared wallets &amp; contracts</h2>
-            <p className="body-sm">
-              Published so nobody has to guess which addresses are ours. None of these are counted
-              as users.
+          <div className="card">
+            <h2 className="h3">
+              <Activity size={16} style={{ display: "inline", marginRight: 6 }} />
+              Live signals
+            </h2>
+            <p className="body-sm" style={{ marginTop: 12 }}>
+              Attribution uses <strong>ERC-8021</strong> (`@celo/attribution-tags`). Agent identity
+              uses <strong>ERC-8004</strong>. Security posture: residual risk only — never
+              unhackable.
             </p>
-            <table className="table" style={{ marginTop: 12 }}>
-              <thead>
-                <tr>
-                  <th>Role</th>
-                  <th>Address</th>
-                  <th>Treatment</th>
-                </tr>
-              </thead>
-              <tbody>
-                {declared.map((d) => (
-                  <tr key={d[1]}>
-                    <td>{d[0]}</td>
-                    <td className="mono">{d[1]}</td>
-                    <td style={{ color: "var(--muted)" }}>{d[2]}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            {x402.data ? (
+              <pre className="body-sm" style={{ marginTop: 12, whiteSpace: "pre-wrap" }}>
+                {JSON.stringify(
+                  {
+                    facilitator: x402.data.facilitator,
+                    usatSupportedByFacilitator: x402.data.usatSupportedByFacilitator,
+                    usdc: x402.data.usdc,
+                    usdt: x402.data.usdt,
+                  },
+                  null,
+                  2,
+                )}
+              </pre>
+            ) : null}
           </div>
-        </div>
-
-        <div className="card">
-          <div className="card-icon">
-            <Activity size={18} strokeWidth={1.8} />
-          </div>
-          <h2 className="h3">Recent agent events</h2>
-          <ul className="checklist" style={{ marginTop: 8 }}>
-            {[
-              "09:41 · transferWithAuthorization settled with attribution suffix",
-              "09:38 · x402 quote resolved for 40 USA₮ agent leg",
-              "08:12 · fee abstraction paid gas in cNGN for 14 sends",
-              "07:55 · independence check refused a first-funded wallet",
-            ].map((e) => (
-              <li key={e} className="mono" style={{ letterSpacing: 0 }}>
-                {e}
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </>

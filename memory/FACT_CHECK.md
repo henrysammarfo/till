@@ -22,8 +22,10 @@ Only verified or explicitly marked **UNVERIFIED** claims live here. Update when 
 | Facilitator settles USDC + USDT via EIP-3009 | **VERIFIED** | Official Celo x402 docs |
 | USDC Celo mainnet `0xcEBA9300f2b948710d2653dD7B07f33A8B32118C` | **VERIFIED** | Official x402 docs |
 | USDT Celo mainnet `0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e` | **VERIFIED** | Official x402 docs |
-| USA₮ settled by Celo x402 facilitator | **UNVERIFIED until `/supported`** | Marketing page mentions USA₮; official docs emphasize USDC/USDT. Gate in code. |
-| cNGN mainnet contract address | **UNVERIFIED — resolve before transfers** | Do not trust unverified search snippets; confirm Celoscan + official cNGN/Celo docs |
+| USA₮ settled by Celo x402 facilitator | **NOT listed in /supported (2026-09-04 smoke)** | Live `GET https://api.x402.celo.org/supported` — kinds exact/celo only; no USA₮ mention. Gate in code. |
+| USDC fee adapter mainnet `0x2F25deB3848C207fc8E0c34035B3Ba7fC157602B` | **VERIFIED** | docs.celo.org fee-abstraction guide |
+| USDT fee adapter mainnet `0x0e2a3e05bc9a16f5292a6170456a710cb89c6f72` | **VERIFIED** | docs.celo.org fee-abstraction celocli example |
+| cNGN / USA₮ fee adapters | **UNVERIFIED** — fail closed in code until listed | — |
 
 ## Security language
 
@@ -37,4 +39,4 @@ Only verified or explicitly marked **UNVERIFIED** claims live here. Update when 
 |---|---|
 | Tavily search | Works with provided key (rotate after chat exposure) |
 | TinyFish Agent API | Auth OK; **0 credits** on prior key — need new key/credits |
-| AgentRouter `/v1/models` from this host | Hit Aliyun WAF captcha HTML — use chat/completions + fingerprint headers; smoke-test before NL |
+| AgentRouter `/v1/chat/completions` from this Cloud Agent host | **BLOCKED (Aliyun WAF HTML, 2026-09-04)** | Live probe returns captcha HTML despite fingerprint headers. Structured till intents still work without NL. No LLM fallback. |

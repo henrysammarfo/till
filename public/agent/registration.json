@@ -1,0 +1,35 @@
+{
+  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+  "name": "TILL",
+  "description": "Telegram payment till for MiniPay/Celo: counter-job stablecoin settlements with ERC-8021 attribution and fee abstraction.",
+  "image": "",
+  "services": [
+    {
+      "name": "web",
+      "endpoint": "https://github.com/henrysammarfo/till"
+    },
+    {
+      "name": "MCP",
+      "endpoint": ""
+    },
+    {
+      "name": "A2A",
+      "endpoint": ""
+    },
+    {
+      "name": "email",
+      "endpoint": ""
+    }
+  ],
+  "x402Support": true,
+  "active": true,
+  "registrations": [],
+  "supportedTrust": ["reputation"],
+  "metadata": {
+    "primaryTrack": "real-world-adoption",
+    "network": "celo-mainnet",
+    "attributionStandard": "ERC-8021",
+    "agentStandard": "ERC-8004",
+    "securityPosture": "residual-risk-documented-not-unhackable"
+  }
+}

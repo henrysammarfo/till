@@ -47,6 +47,35 @@ function isH3SwallowedErrorBody(body: string): boolean {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const url = new URL(request.url);
+      if (request.method === "POST" && url.pathname === "/api/telegram/webhook") {
+        const { processTelegramUpdate } = await import("./server/telegram/process-update");
+        const body = await request.json();
+        return processTelegramUpdate(body, request.headers.get("x-telegram-bot-api-secret-token"));
+      }
+      if (request.method === "GET" && url.pathname === "/api/x402/supported") {
+        const { fetchX402Supported, usatSupportedIn } = await import("./server/x402/facilitator");
+        const { getEnv } = await import("./server/env");
+        const env = getEnv();
+        const supported = await fetchX402Supported();
+        return Response.json({
+          facilitator: env.X402_FACILITATOR_URL,
+          usdc: env.USDC_TOKEN_ADDRESS,
+          usdt: env.USDT_TOKEN_ADDRESS,
+          usatConfigured: Boolean(env.USAT_TOKEN_ADDRESS),
+          usatSupportedByFacilitator: usatSupportedIn(supported),
+          supported,
+        });
+      }
+      if (request.method === "GET" && url.pathname === "/api/health") {
+        return Response.json({
+          ok: true,
+          service: "till",
+          network: "celo-mainnet",
+          residualRiskDoc: "/memory/THREAT_MODEL.md",
+        });
+      }
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);

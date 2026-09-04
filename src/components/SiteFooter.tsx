@@ -10,7 +10,8 @@ export function SiteFooter() {
             <Logo />
             <p className="body-sm" style={{ marginTop: 14, maxWidth: 280 }}>
               The chat till for MiniPay. Say who and how much, sign once — cNGN or USA₮ lands with
-              an independent party on Celo mainnet.
+              an independent party on Celo mainnet. Hardened with residual risk documented — we do
+              not claim unhackable.
             </p>
           </div>
           <div>
