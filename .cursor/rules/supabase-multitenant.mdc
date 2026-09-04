@@ -1,0 +1,13 @@
+---
+description: Multi-tenant Supabase schema and RLS conventions
+globs: supabase/**,**/integrations/supabase/**
+alwaysApply: false
+---
+
+# Supabase Multitenant
+
+- Every business row carries `tenant_id` (uuid FK → `tenants`).
+- RLS: members only see their tenants; service role reserved for Telegram webhook + indexer.
+- Helpers: `is_tenant_member(tenant_id)`, `has_tenant_role(tenant_id, role)`.
+- No cross-tenant portal codes without membership checks.
+- Migrations are additive; never weaken RLS for convenience.

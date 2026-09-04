@@ -1,0 +1,13 @@
+---
+description: Celo payment, attribution, fee abstraction, and x402 rules
+globs: src/server/celo/**,src/server/till/**,src/server/telegram/**,src/server/x402/**,scripts/smoke-*.ts
+alwaysApply: false
+---
+
+# Celo Payments
+
+- Tag every user-facing tx with `toDataSuffix(CELO_ATTRIBUTION_TAG)`; call `verifyTx` after settle.
+- EIP-3009 for gasless authorisers; fee abstraction (`feeCurrency`) for agent gas in stablecoin.
+- x402: talk to `api.x402.celo.org` only; gate USA₮ on live `GET /supported`.
+- Token addresses must match `FACT_CHECK.md` verified rows — fail closed if unset.
+- Private keys / X402 keys: server-only. Never ship to the browser.

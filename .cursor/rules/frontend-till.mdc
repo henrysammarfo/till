@@ -1,0 +1,13 @@
+---
+description: TILL frontend and Studio UI conventions
+globs: src/routes/**,src/components/**
+alwaysApply: false
+---
+
+# Frontend TILL
+
+- Preserve existing TILL brand / custom CSS variables; do not invent a purple/cream AI default theme.
+- Studio dashboards bind to **live** Supabase/till data — no hardcoded transaction rows.
+- Auth session: cookie-backed production path; do not reintroduce localStorage session persistence.
+- Name ERC-8021 for attribution and ERC-8004 for agent identity in user-facing copy when technical.
+- Security copy: residual risk only — never “unhackable”.
