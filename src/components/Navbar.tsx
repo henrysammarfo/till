@@ -9,6 +9,7 @@ const links = [
   { to: "/agent", label: "Agent" },
   { to: "/plans", label: "Plans" },
   { to: "/merch", label: "Merch" },
+  { to: "/portal", label: "Portal" },
 ] as const;
 
 const drawerLinks = [
@@ -19,6 +20,8 @@ const drawerLinks = [
   { to: "/merch", label: "Merch" },
   { to: "/brand", label: "Brand" },
   { to: "/faq", label: "FAQs" },
+  { to: "/portal", label: "Client portal" },
+  { to: "/book", label: "Book a call" },
   { to: "/dashboard", label: "Dashboard" },
   { to: "/contact", label: "Get in Touch" },
 ] as const;

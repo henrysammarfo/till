@@ -79,7 +79,7 @@ function Index() {
             <Link to="/plans" className="btn-primary">
               View Plans
             </Link>
-            <a className="book-btn" href="https://t.me" target="_blank" rel="noreferrer">
+            <Link className="book-btn" to="/book">
               <img
                 src="https://framerusercontent.com/images/hfneFL6CHBi5BnNvCeOaqU9HqE4.png"
                 alt=""
@@ -94,7 +94,7 @@ function Index() {
                   <span className="dot-green" /> Pick a slot
                 </span>
               </span>
-            </a>
+            </Link>
           </div>
 
           <div className="hero-blur" />
