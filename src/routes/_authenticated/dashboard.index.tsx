@@ -1,5 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, Coins, Fuel, Repeat, TrendingUp, Users } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import {
+  ArrowUpRight,
+  Briefcase,
+  CalendarClock,
+  Coins,
+  Contact,
+  Fuel,
+  Repeat,
+  TrendingUp,
+  Users,
+} from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
 
 export const Route = createFileRoute("/_authenticated/dashboard/")({
   head: () => ({
