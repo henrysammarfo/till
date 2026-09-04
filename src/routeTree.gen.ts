@@ -28,6 +28,7 @@ import { Route as AuthenticatedDashboardAgentRouteImport } from './routes/_authe
 import { Route as AuthenticatedDashboardBookingsRouteImport } from './routes/_authenticated/dashboard.bookings'
 import { Route as AuthenticatedDashboardChecklistRouteImport } from './routes/_authenticated/dashboard.checklist'
 import { Route as AuthenticatedDashboardClientsRouteImport } from './routes/_authenticated/dashboard.clients'
+import { Route as AuthenticatedDashboardProjectsRouteImport } from './routes/_authenticated/dashboard.projects'
 import { Route as AuthenticatedDashboardSettingsRouteImport } from './routes/_authenticated/dashboard.settings'
 import { Route as AuthenticatedDashboardTransactionsRouteImport } from './routes/_authenticated/dashboard.transactions'
 import { Route as AuthenticatedDashboardUsersRouteImport } from './routes/_authenticated/dashboard.users'
@@ -131,6 +132,12 @@ const AuthenticatedDashboardClientsRoute =
     path: '/clients',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
+const AuthenticatedDashboardProjectsRoute =
+  AuthenticatedDashboardProjectsRouteImport.update({
+    id: '/projects',
+    path: '/projects',
+    getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
 const AuthenticatedDashboardSettingsRoute =
   AuthenticatedDashboardSettingsRouteImport.update({
     id: '/settings',
@@ -168,6 +175,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/bookings': typeof AuthenticatedDashboardBookingsRoute
   '/dashboard/checklist': typeof AuthenticatedDashboardChecklistRoute
   '/dashboard/clients': typeof AuthenticatedDashboardClientsRoute
+  '/dashboard/projects': typeof AuthenticatedDashboardProjectsRoute
   '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/dashboard/transactions': typeof AuthenticatedDashboardTransactionsRoute
   '/dashboard/users': typeof AuthenticatedDashboardUsersRoute
@@ -190,6 +198,7 @@ export interface FileRoutesByTo {
   '/dashboard/bookings': typeof AuthenticatedDashboardBookingsRoute
   '/dashboard/checklist': typeof AuthenticatedDashboardChecklistRoute
   '/dashboard/clients': typeof AuthenticatedDashboardClientsRoute
+  '/dashboard/projects': typeof AuthenticatedDashboardProjectsRoute
   '/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/dashboard/transactions': typeof AuthenticatedDashboardTransactionsRoute
   '/dashboard/users': typeof AuthenticatedDashboardUsersRoute
@@ -215,6 +224,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard/bookings': typeof AuthenticatedDashboardBookingsRoute
   '/_authenticated/dashboard/checklist': typeof AuthenticatedDashboardChecklistRoute
   '/_authenticated/dashboard/clients': typeof AuthenticatedDashboardClientsRoute
+  '/_authenticated/dashboard/projects': typeof AuthenticatedDashboardProjectsRoute
   '/_authenticated/dashboard/settings': typeof AuthenticatedDashboardSettingsRoute
   '/_authenticated/dashboard/transactions': typeof AuthenticatedDashboardTransactionsRoute
   '/_authenticated/dashboard/users': typeof AuthenticatedDashboardUsersRoute
@@ -240,6 +250,7 @@ export interface FileRouteTypes {
     | '/dashboard/bookings'
     | '/dashboard/checklist'
     | '/dashboard/clients'
+    | '/dashboard/projects'
     | '/dashboard/settings'
     | '/dashboard/transactions'
     | '/dashboard/users'
@@ -262,6 +273,7 @@ export interface FileRouteTypes {
     | '/dashboard/bookings'
     | '/dashboard/checklist'
     | '/dashboard/clients'
+    | '/dashboard/projects'
     | '/dashboard/settings'
     | '/dashboard/transactions'
     | '/dashboard/users'
@@ -286,6 +298,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard/bookings'
     | '/_authenticated/dashboard/checklist'
     | '/_authenticated/dashboard/clients'
+    | '/_authenticated/dashboard/projects'
     | '/_authenticated/dashboard/settings'
     | '/_authenticated/dashboard/transactions'
     | '/_authenticated/dashboard/users'
@@ -443,6 +456,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardClientsRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/dashboard/projects': {
+      id: '/_authenticated/dashboard/projects'
+      path: '/projects'
+      fullPath: '/dashboard/projects'
+      preLoaderRoute: typeof AuthenticatedDashboardProjectsRouteImport
+      parentRoute: typeof AuthenticatedDashboardRoute
+    }
     '/_authenticated/dashboard/settings': {
       id: '/_authenticated/dashboard/settings'
       path: '/settings'
@@ -472,6 +492,7 @@ interface AuthenticatedDashboardRouteChildren {
   AuthenticatedDashboardBookingsRoute: typeof AuthenticatedDashboardBookingsRoute
   AuthenticatedDashboardChecklistRoute: typeof AuthenticatedDashboardChecklistRoute
   AuthenticatedDashboardClientsRoute: typeof AuthenticatedDashboardClientsRoute
+  AuthenticatedDashboardProjectsRoute: typeof AuthenticatedDashboardProjectsRoute
   AuthenticatedDashboardSettingsRoute: typeof AuthenticatedDashboardSettingsRoute
   AuthenticatedDashboardTransactionsRoute: typeof AuthenticatedDashboardTransactionsRoute
   AuthenticatedDashboardUsersRoute: typeof AuthenticatedDashboardUsersRoute
@@ -484,6 +505,7 @@ const AuthenticatedDashboardRouteChildren: AuthenticatedDashboardRouteChildren =
     AuthenticatedDashboardBookingsRoute: AuthenticatedDashboardBookingsRoute,
     AuthenticatedDashboardChecklistRoute: AuthenticatedDashboardChecklistRoute,
     AuthenticatedDashboardClientsRoute: AuthenticatedDashboardClientsRoute,
+    AuthenticatedDashboardProjectsRoute: AuthenticatedDashboardProjectsRoute,
     AuthenticatedDashboardSettingsRoute: AuthenticatedDashboardSettingsRoute,
     AuthenticatedDashboardTransactionsRoute:
       AuthenticatedDashboardTransactionsRoute,
