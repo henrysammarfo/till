@@ -10,10 +10,24 @@
 - Started branch `cursor/till-full-stack-8d41`.
 - Phase 0: secrets hygiene, memory pack, Cursor rules/skills, corrected TILL_BIBLE.md.
 
-## 2026-09-04 — Implementation pass
+## 2026-09-05 — Live MiniPay authorize + production ops
 
-- Implemented phases 1–6 codepaths: multitenant migration, cookie sessions, telegram webhook, celo settle + attribution, x402 routes, live studio dashboards, smokes/tests.
-- Build: `bun run build` success. Tests: 3 passed.
-- Live x402 `/supported`: no USA₮ mention — FACT_CHECK updated.
-- AgentRouter from this Cloud Agent egress: Aliyun WAF HTML — fail closed; structured intents work without NL.
-- Fee adapters verified: USDC `0x2F25…602B`, USDT `0x0e2a…0cb89c6f72`.
+- Shipped `/pay` MiniPay EIP-3009 authorize → `settleTillJob` (wait receipt + attribution `verifyTx`, fail closed).
+- Telegram webhook fail-closed on missing secret; deep-links `/pay?job=` via required `PUBLIC_APP_URL`.
+- `/api/ready` probes live Celo RPC + Supabase (presence + connectivity).
+- Operator scripts: `bootstrap:tenant`, `register:telegram`, `smoke:verify-tx`.
+- Studio overview no longer swallows ledger errors into fake zeros.
+- `bun run test` + `smoke:attribution` + `bun run build` green.
+- Still blocked on user keys for first live tagged mainnet settle.
+- Residual risk only — do not claim unhackable.
+
+## 2026-09-05 — Live MiniPay authorize + production ops
+
+- Shipped `/pay` MiniPay EIP-3009 authorize → settleTillJob (wait receipt + attribution verifyTx, fail closed).
+- Telegram webhook fail-closed on missing secret; deep-links `/pay?job=` via required PUBLIC_APP_URL.
+- `/api/ready` probes live Celo RPC + Supabase.
+- Operator scripts: bootstrap:tenant, register:telegram, smoke:verify-tx.
+- Studio overview no longer swallows ledger errors into fake zeros.
+- bun run test + smoke:attribution + bun run build green.
+- Still blocked on user keys for first live tagged mainnet settle.
+- Residual risk only — do not claim unhackable.

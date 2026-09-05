@@ -5,6 +5,8 @@ import { requireEnv } from "@/server/env";
 import { parseTillIntent } from "@/server/till/intent";
 import { checkCounterpartyIndependence } from "@/server/till/counterparty";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { parseUnits } from "viem";
+import { EIP3009_TOKEN_META } from "@/server/celo/eip3009-typed-data";
 
 const telegramUpdateSchema = z.object({
   update_id: z.number(),
@@ -48,12 +50,10 @@ async function telegramReply(chatId: number, text: string) {
 export const handleTelegramWebhook = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => telegramUpdateSchema.parse(data))
   .handler(async ({ data }) => {
-    const secret = process.env.TELEGRAM_WEBHOOK_SECRET;
-    if (secret) {
-      const hdr = getRequestHeader("x-telegram-bot-api-secret-token");
-      if (hdr !== secret) {
-        throw new Error("Invalid Telegram webhook secret");
-      }
+    const { TELEGRAM_WEBHOOK_SECRET } = requireEnv(["TELEGRAM_WEBHOOK_SECRET"]);
+    const hdr = getRequestHeader("x-telegram-bot-api-secret-token");
+    if (hdr !== TELEGRAM_WEBHOOK_SECRET) {
+      throw new Error("Invalid Telegram webhook secret");
     }
 
     const msg = data.message;
@@ -82,6 +82,8 @@ export const handleTelegramWebhook = createServerFn({ method: "POST" })
       }
 
       const tenantId = await resolveDefaultTenantId();
+      const meta = EIP3009_TOKEN_META[intent.asset];
+      const amountAtomic = parseUnits(intent.amount, meta.decimals).toString();
       const { data: job, error } = await supabaseAdmin
         .from("till_jobs")
         .insert({
@@ -90,7 +92,7 @@ export const handleTelegramWebhook = createServerFn({ method: "POST" })
           telegram_user_id: msg.from ? String(msg.from.id) : null,
           counterparty_wallet: independence.wallet,
           asset: intent.asset,
-          amount_atomic: intent.amount,
+          amount_atomic: amountAtomic,
           amount_display: `${intent.amount} ${intent.asset}`,
           status: "awaiting_signature",
           intent_raw: msg.text,
@@ -99,7 +101,8 @@ export const handleTelegramWebhook = createServerFn({ method: "POST" })
         .single();
       if (error) throw new Error(error.message);
 
-      const signUrl = `${process.env.VITE_PUBLIC_APP_URL || "https://till.local"}/book?job=${job.id}`;
+      const { PUBLIC_APP_URL } = requireEnv(["PUBLIC_APP_URL"]);
+      const signUrl = `${PUBLIC_APP_URL.replace(/\/$/, "")}/pay?job=${job.id}`;
       await telegramReply(
         chatId,
         `Till job ${job.id.slice(0, 8)} ready.\nPay ${intent.amount} ${intent.asset} → ${independence.wallet}\nIndependence: ${independence.status}\nAuthorize in MiniPay: ${signUrl}`,

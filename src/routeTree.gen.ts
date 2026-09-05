@@ -18,6 +18,7 @@ import { Route as BrandRouteImport } from './routes/brand'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as MerchRouteImport } from './routes/merch'
+import { Route as PayRouteImport } from './routes/pay'
 import { Route as PlansRouteImport } from './routes/plans'
 import { Route as PortalRouteImport } from './routes/portal'
 import { Route as ProductRouteImport } from './routes/product'
@@ -75,6 +76,11 @@ const FaqRoute = FaqRouteImport.update({
 const MerchRoute = MerchRouteImport.update({
   id: '/merch',
   path: '/merch',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PayRoute = PayRouteImport.update({
+  id: '/pay',
+  path: '/pay',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlansRoute = PlansRouteImport.update({
@@ -166,6 +172,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/merch': typeof MerchRoute
+  '/pay': typeof PayRoute
   '/plans': typeof PlansRoute
   '/portal': typeof PortalRoute
   '/product': typeof ProductRoute
@@ -190,6 +197,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/merch': typeof MerchRoute
+  '/pay': typeof PayRoute
   '/plans': typeof PlansRoute
   '/portal': typeof PortalRoute
   '/product': typeof ProductRoute
@@ -215,6 +223,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/merch': typeof MerchRoute
+  '/pay': typeof PayRoute
   '/plans': typeof PlansRoute
   '/portal': typeof PortalRoute
   '/product': typeof ProductRoute
@@ -241,6 +250,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faq'
     | '/merch'
+    | '/pay'
     | '/plans'
     | '/portal'
     | '/product'
@@ -265,6 +275,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faq'
     | '/merch'
+    | '/pay'
     | '/plans'
     | '/portal'
     | '/product'
@@ -289,6 +300,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faq'
     | '/merch'
+    | '/pay'
     | '/plans'
     | '/portal'
     | '/product'
@@ -315,6 +327,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
   MerchRoute: typeof MerchRoute
+  PayRoute: typeof PayRoute
   PlansRoute: typeof PlansRoute
   PortalRoute: typeof PortalRoute
   ProductRoute: typeof ProductRoute
@@ -384,6 +397,13 @@ declare module '@tanstack/react-router' {
       path: '/merch'
       fullPath: '/merch'
       preLoaderRoute: typeof MerchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pay': {
+      id: '/pay'
+      path: '/pay'
+      fullPath: '/pay'
+      preLoaderRoute: typeof PayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/plans': {
@@ -539,6 +559,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
   MerchRoute: MerchRoute,
+  PayRoute: PayRoute,
   PlansRoute: PlansRoute,
   PortalRoute: PortalRoute,
   ProductRoute: ProductRoute,

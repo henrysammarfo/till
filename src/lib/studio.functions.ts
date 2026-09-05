@@ -14,60 +14,9 @@ async function defaultTenantId() {
 }
 
 export const getStudioOverview = createServerFn({ method: "GET" }).handler(async () => {
-  try {
-    const sb = await admin();
-    const tenantId = await defaultTenantId();
-    if (!tenantId) {
-      return {
-        tenantReady: false as const,
-        verifiedUsers: 0,
-        authorisers: 0,
-        taggedTxs: 0,
-        returningPct: 0,
-        recent: [] as Array<Record<string, string>>,
-      };
-    }
-
-    const { data: txs, error } = await sb
-      .from("till_transactions")
-      .select(
-        "created_at, from_wallet, to_wallet, amount_display, path, tx_hash, attribution_verified",
-      )
-      .eq("tenant_id", tenantId)
-      .order("created_at", { ascending: false })
-      .limit(50);
-    if (error) throw new Error(error.message);
-
-    const rows = txs ?? [];
-    const authorisers = new Set(rows.map((r) => r.from_wallet as string));
-    const daysByUser = new Map<string, Set<string>>();
-    for (const r of rows) {
-      const day = String(r.created_at).slice(0, 10);
-      const set = daysByUser.get(r.from_wallet as string) ?? new Set();
-      set.add(day);
-      daysByUser.set(r.from_wallet as string, set);
-    }
-    const returning = [...daysByUser.values()].filter((d) => d.size >= 2).length;
-    const returningPct = authorisers.size
-      ? Math.round((returning / authorisers.size) * 1000) / 10
-      : 0;
-
-    return {
-      tenantReady: true as const,
-      verifiedUsers: authorisers.size,
-      authorisers: authorisers.size,
-      taggedTxs: rows.filter((r) => r.attribution_verified).length,
-      returningPct,
-      recent: rows.slice(0, 8).map((r) => ({
-        time: String(r.created_at).slice(11, 16),
-        wallet: `${String(r.from_wallet).slice(0, 6)}…${String(r.from_wallet).slice(-4)}`,
-        amount: String(r.amount_display ?? ""),
-        path: String(r.path),
-        hash: String(r.tx_hash),
-        status: r.attribution_verified ? "Settled" : "Unverified",
-      })),
-    };
-  } catch (e) {
+  const sb = await admin();
+  const tenantId = await defaultTenantId();
+  if (!tenantId) {
     return {
       tenantReady: false as const,
       verifiedUsers: 0,
@@ -75,9 +24,49 @@ export const getStudioOverview = createServerFn({ method: "GET" }).handler(async
       taggedTxs: 0,
       returningPct: 0,
       recent: [] as Array<Record<string, string>>,
-      error: e instanceof Error ? e.message : String(e),
+      error: "Default tenant missing — run bun run bootstrap:tenant after applying migration",
     };
   }
+
+  const { data: txs, error } = await sb
+    .from("till_transactions")
+    .select(
+      "created_at, from_wallet, to_wallet, amount_display, path, tx_hash, attribution_verified",
+    )
+    .eq("tenant_id", tenantId)
+    .order("created_at", { ascending: false })
+    .limit(50);
+  if (error) throw new Error(error.message);
+
+  const rows = txs ?? [];
+  const authorisers = new Set(rows.map((r) => r.from_wallet as string));
+  const daysByUser = new Map<string, Set<string>>();
+  for (const r of rows) {
+    const day = String(r.created_at).slice(0, 10);
+    const set = daysByUser.get(r.from_wallet as string) ?? new Set();
+    set.add(day);
+    daysByUser.set(r.from_wallet as string, set);
+  }
+  const returning = [...daysByUser.values()].filter((d) => d.size >= 2).length;
+  const returningPct = authorisers.size
+    ? Math.round((returning / authorisers.size) * 1000) / 10
+    : 0;
+
+  return {
+    tenantReady: true as const,
+    verifiedUsers: authorisers.size,
+    authorisers: authorisers.size,
+    taggedTxs: rows.filter((r) => r.attribution_verified).length,
+    returningPct,
+    recent: rows.slice(0, 8).map((r) => ({
+      time: String(r.created_at).slice(11, 16),
+      wallet: `${String(r.from_wallet).slice(0, 6)}…${String(r.from_wallet).slice(-4)}`,
+      amount: String(r.amount_display ?? ""),
+      path: String(r.path),
+      hash: String(r.tx_hash),
+      status: r.attribution_verified ? "Settled" : "Unverified",
+    })),
+  };
 });
 
 export const getStudioTransactions = createServerFn({ method: "GET" }).handler(async () => {

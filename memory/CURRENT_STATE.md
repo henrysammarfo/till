@@ -1,31 +1,33 @@
 # TILL — Current State
 
-**Updated:** 2026-09-04  
+**Updated:** 2026-09-05  
 **Branch:** `cursor/till-full-stack-8d41`  
 **Plan:** Option A full stack
 
-## Shipped in this branch
+## Shipped
 
 - Secrets hygiene (`.env` untracked, `.env.example`)
-- Memory pack + Cursor rules/skills + corrected `TILL_BIBLE.md`
+- Memory pack + Cursor rules/skills + `TILL_BIBLE.md`
 - Multi-tenant Supabase migration (`tenants`, till jobs/txs, attribution_events, agent_config)
-- HttpOnly cookie session mirror + production memory auth storage (no localStorage outside Lovable preview)
-- Live Telegram webhook route `/api/telegram/webhook`
-- Celo modules: attribution (ERC-8021), EIP-3009 settle, fee abstraction adapters, MiniPay links
-- x402 facilitator client + `/api/x402/supported` (USA₮ **not** in live `/supported`)
+- HttpOnly cookie session + production memory auth (no localStorage outside Lovable preview)
+- Live Telegram webhook `/api/telegram/webhook` → creates till jobs → MiniPay `/pay?job=`
+- `/pay` MiniPay EIP-3009 authorize → `settleTillJob` (wait receipt + `verifyTx`)
+- Celo modules: attribution (ERC-8021), EIP-3009 settle, fee abstraction (USDC/USDT only), MiniPay
+- x402 facilitator client + `/api/x402/supported` (USA₮ gated — not in live `/supported`)
 - Studio dashboards bound to live till tables (mocks removed)
 - ERC-8004 registration file at `public/agent/registration.json`
-- Unit tests + smoke scripts; `bun run build` clean
+- Operator scripts: `bootstrap:tenant`, `register:telegram`, `register:agent`, `smoke:verify-tx`
+- `/api/health` + `/api/ready` (env presence + live Celo RPC + Supabase probes)
+- Unit tests + smokes; `bun run build` clean
 
-## Blockers (need user env)
+## Blockers (need your keys)
 
-- `TELEGRAM_BOT_TOKEN` + webhook secret
-- `SUPABASE_SERVICE_ROLE_KEY` + apply migration
+- `TELEGRAM_BOT_TOKEN` + `TELEGRAM_WEBHOOK_SECRET`
+- `SUPABASE_SERVICE_ROLE_KEY` + apply multitenant migration
 - `CELO_AGENT_PRIVATE_KEY`, `CELO_ATTRIBUTION_TAG`, `CELO_AGENT_WALLET` (after contest register)
-- `CNGN_TOKEN_ADDRESS` / `USAT_TOKEN_ADDRESS` once verified
-- `X402_API_KEY` for settle
-- New TinyFish key/credits
-- AgentRouter reachable network (this host WAF-blocked)
+- Verified `CNGN_TOKEN_ADDRESS` (+ `USAT_TOKEN_ADDRESS` if claiming USA₮)
+- `X402_API_KEY`, `PUBLIC_APP_URL`
+- TinyFish credits / AgentRouter reachable network (structured intents work without NL)
 
 ## Security
 

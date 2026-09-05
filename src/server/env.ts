@@ -45,6 +45,8 @@ const envSchema = z.object({
   TAVILY_API_KEY: optStr,
   TINYFISH_API_KEY: optStr,
   TILL_DEFAULT_TENANT_SLUG: z.preprocess(emptyToUndef, z.string().default("till")),
+  PUBLIC_APP_URL: optUrl,
+  VITE_PUBLIC_APP_URL: optUrl,
 });
 
 export type TillEnv = z.infer<typeof envSchema>;

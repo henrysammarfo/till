@@ -1,6 +1,8 @@
 import { requireEnv } from "@/server/env";
 import { parseTillIntent } from "@/server/till/intent";
 import { checkCounterpartyIndependence } from "@/server/till/counterparty";
+import { parseUnits } from "viem";
+import { EIP3009_TOKEN_META } from "@/server/celo/eip3009-typed-data";
 
 async function resolveDefaultTenantId(): Promise<string> {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -32,7 +34,13 @@ export async function processTelegramUpdate(
   secretHeader: string | null,
 ): Promise<Response> {
   const secret = process.env.TELEGRAM_WEBHOOK_SECRET;
-  if (secret && secretHeader !== secret) {
+  if (!secret) {
+    return Response.json(
+      { ok: false, error: "TELEGRAM_WEBHOOK_SECRET not configured — refuse webhook" },
+      { status: 503 },
+    );
+  }
+  if (secretHeader !== secret) {
     return Response.json({ ok: false, error: "invalid secret" }, { status: 401 });
   }
 
@@ -70,6 +78,8 @@ export async function processTelegramUpdate(
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const tenantId = await resolveDefaultTenantId();
+    const meta = EIP3009_TOKEN_META[intent.asset];
+    const amountAtomic = parseUnits(intent.amount, meta.decimals).toString();
     const { data: job, error } = await supabaseAdmin
       .from("till_jobs")
       .insert({
@@ -78,7 +88,7 @@ export async function processTelegramUpdate(
         telegram_user_id: msg.from ? String(msg.from.id) : null,
         counterparty_wallet: independence.wallet,
         asset: intent.asset,
-        amount_atomic: intent.amount,
+        amount_atomic: amountAtomic,
         amount_display: `${intent.amount} ${intent.asset}`,
         status: "awaiting_signature",
         intent_raw: msg.text,
@@ -87,8 +97,8 @@ export async function processTelegramUpdate(
       .single();
     if (error) throw new Error(error.message);
 
-    const appUrl = process.env.VITE_PUBLIC_APP_URL || process.env.SUPABASE_URL || "";
-    const signUrl = `${appUrl}/book?job=${job.id}`;
+    const { PUBLIC_APP_URL } = requireEnv(["PUBLIC_APP_URL"]);
+    const signUrl = `${PUBLIC_APP_URL.replace(/\/$/, "")}/pay?job=${job.id}`;
     await telegramReply(
       chatId,
       `Till job ${String(job.id).slice(0, 8)} ready.\nPay ${intent.amount} ${intent.asset} → ${independence.wallet}\nIndependence: ${independence.status}\nAuthorize in MiniPay: ${signUrl}`,

@@ -13,9 +13,12 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "smoke:attribution": "bun scripts/smoke-attribution.ts",
+    "smoke:verify-tx": "bun scripts/smoke-verify-tx.ts",
     "smoke:agentrouter": "bun scripts/smoke-agentrouter.ts",
     "smoke:x402": "bun scripts/smoke-x402-supported.ts",
-    "register:agent": "bun scripts/register-agent-config.ts"
+    "register:agent": "bun scripts/register-agent-config.ts",
+    "register:telegram": "bun scripts/register-telegram-webhook.ts",
+    "bootstrap:tenant": "bun scripts/bootstrap-tenant.ts"
   },
   "overrides": {
     "rolldown": "1.2.1"
