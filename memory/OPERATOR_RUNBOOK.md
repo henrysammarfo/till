@@ -2,41 +2,157 @@
 
 **Security:** Residual risk only. Never claim unhackable. See `memory/THREAT_MODEL.md`.
 
-## Prerequisites (you supply keys — no placeholders)
+Do these steps **in order**. Do not skip probes. Do not invent token addresses.
 
-| Key | Purpose |
-|-----|---------|
-| `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` | Multitenant ledger |
-| `TELEGRAM_BOT_TOKEN` + `TELEGRAM_WEBHOOK_SECRET` | Live till webhook |
-| `PUBLIC_APP_URL` | HTTPS origin for `/pay` + webhook |
-| `CELO_AGENT_PRIVATE_KEY` | Relayer for EIP-3009 submit |
-| `CELO_ATTRIBUTION_TAG` | Contest ERC-8021 tag (after agentscooking.xyz register) |
-| `CELO_AGENT_WALLET` | Declared agent wallet |
-| `CNGN_TOKEN_ADDRESS` | Verified cNGN contract on Celo mainnet |
-| `X402_API_KEY` | Facilitator settle (USDC/USDT; USA₮ gated) |
-| `AGENTROUTER_API_KEY` | NL intents only (structured cmds work without) |
+---
 
-## Bootstrap sequence
+## 0. Keys to paste into env (then rotate anything previously shared in chat)
 
-1. Apply `supabase/migrations/20260904140000_till_multitenant.sql` via Supabase SQL editor or CLI.
-2. `bun run bootstrap:tenant -- --slug till --name TILL --telegram-username YourBot --agent-wallet 0x…`
-3. Deploy app with env set; confirm `GET /api/health` → 200.
-4. `GET /api/ready` → `ready: true` (live Celo RPC + Supabase probes).
-5. `bun run register:telegram`
-6. Register agent + tag at https://agentscooking.xyz → set `CELO_ATTRIBUTION_TAG` / `CELO_AGENT_WALLET` → `bun run register:agent`
-7. Telegram: `send 5 cNGN to 0xIndependentCounterparty`
-8. Open MiniPay link `/pay?job=<uuid>` → connect → Sign & settle
-9. `bun run smoke:verify-tx -- --tx 0x…` against the mined hash
+Put only in `.env` / host secrets — **never** commit.
 
-## Fail-closed rules
+| # | Key | When |
+|---|-----|------|
+| 1 | `SUPABASE_URL` | Now |
+| 2 | `SUPABASE_SERVICE_ROLE_KEY` | Now |
+| 3 | `SUPABASE_PUBLISHABLE_KEY` + matching `VITE_SUPABASE_*` | Now (Studio auth) |
+| 4 | `TELEGRAM_BOT_TOKEN` | Now (@BotFather) |
+| 5 | `TELEGRAM_WEBHOOK_SECRET` | Now (long random string you generate) |
+| 6 | `PUBLIC_APP_URL` | After deploy (HTTPS origin, no trailing slash) |
+| 7 | `CELO_AGENT_PRIVATE_KEY` | Now (relayer key — fund with CELO or USDC for gas) |
+| 8 | `CNGN_TOKEN_ADDRESS` | Now — **only after Celoscan/official verify** |
+| 9 | `X402_API_KEY` | When claiming x402 settle |
+| 10 | `CELO_ATTRIBUTION_TAG` | **After** https://agentscooking.xyz register |
+| 11 | `CELO_AGENT_WALLET` | **After** contest register (must match declared wallet) |
+| 12 | `CELO_ERC8004_URL` | Optional; defaults to repo registration.json |
+| 13 | `AGENTROUTER_API_KEY` | Optional (structured Telegram cmds work without NL) |
+
+Already defaulted (do not invent replacements unless verified):
+
+- `CELO_RPC_URL=https://forno.celo.org`
+- `USDC_TOKEN_ADDRESS` / `USDT_TOKEN_ADDRESS` (see `.env.example`)
+- Fee adapters: USDC/USDT only (cNGN/USAT fee path fail-closed)
+
+---
+
+## 1. Apply multitenant migration
+
+In Supabase SQL editor (or CLI), run:
+
+`supabase/migrations/20260904140000_till_multitenant.sql`
+
+Confirm tables exist: `tenants`, `agent_config`, `till_jobs`, `till_transactions`, `attribution_events`.
+
+---
+
+## 2. Bootstrap default tenant
+
+With `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` set:
+
+```bash
+bun run bootstrap:tenant -- \
+  --slug till \
+  --name "TILL" \
+  --telegram-username YourTillBot \
+  --agent-wallet 0xYourAgentWallet
+```
+
+Use the **same** agent wallet you will declare on agentscooking.xyz.
+
+---
+
+## 3. Deploy app + set `PUBLIC_APP_URL`
+
+Deploy the app (Lovable / your host). Then set:
+
+```bash
+PUBLIC_APP_URL=https://your-real-https-domain.example
+VITE_PUBLIC_APP_URL=https://your-real-https-domain.example
+```
+
+No trailing slash. Must be HTTPS reachable from Telegram.
+
+---
+
+## 4. Health + ready probes (must pass before webhook)
+
+```bash
+curl -sS "$PUBLIC_APP_URL/api/health"
+curl -sS "$PUBLIC_APP_URL/api/ready"
+```
+
+- `/api/health` → `ok: true`
+- `/api/ready` → `ready: true` and **empty** `missing`
+
+If `ready` is false, fix listed missing keys / RPC / Supabase before continuing. No soft skip.
+
+---
+
+## 5. Register Telegram webhook
+
+```bash
+bun run register:telegram
+```
+
+Requires: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_WEBHOOK_SECRET`, `PUBLIC_APP_URL`.
+
+Registers: `$PUBLIC_APP_URL/api/telegram/webhook` with your secret header.
+
+Confirm `getWebhookInfo` URL matches.
+
+---
+
+## 6. Contest register (attribution + wallet)
+
+1. Register agent at https://agentscooking.xyz
+2. Set env:
+   - `CELO_ATTRIBUTION_TAG=<your contest tag>`
+   - `CELO_AGENT_WALLET=0x…` (same as bootstrap)
+3. Persist into DB:
+
+```bash
+bun run register:agent
+```
+
+ERC-8004 card is already at `public/agent/registration.json` — publish/point `CELO_ERC8004_URL` if required.
+
+---
+
+## 7. First live till (mainnet)
+
+In Telegram to your bot (structured — no NL required):
+
+```text
+send 5 cNGN to 0xIndependentCounterparty
+```
+
+Rules:
+
+- Counterparty must be an **independent** MiniPay wallet (not your builder wallet)
+- Bot replies with MiniPay link: `/pay?job=<uuid>`
+- Open link **inside MiniPay** → Connect → Sign & settle
+- Settlement waits for receipt and **fails closed** if attribution `verifyTx` does not include your tag
+
+---
+
+## 8. Verify the mined tx
+
+```bash
+bun run smoke:verify-tx -- --tx 0xYourMinedTxHash
+```
+
+Expect `ok: true` and your tag in `codes`. Celoscan link is printed.
+
+---
+
+## Fail-closed rules (do not bypass)
 
 - No mocks, simulators, or demo settlements
-- Missing env → hard error (not soft defaults)
-- Attribution `verifyTx` must include contest tag or job fails
+- Missing env → hard error
 - USA₮ x402 path blocked until facilitator `/supported` lists it
-- cNGN/USAT fee adapters refused until FACT_CHECK verified
+- cNGN/USAT **fee adapters** refused until FACT_CHECK verified (USDC/USDT fee abstraction OK)
+- Residual risk only — not unhackable
 
-## Smokes
+## Smokes anytime
 
 ```bash
 bun run test
