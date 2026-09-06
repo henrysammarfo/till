@@ -8,7 +8,8 @@ Only verified or explicitly marked **UNVERIFIED** claims live here. Update when 
 |---|---|---|
 | Deadline Sep 14 2026 09:00 GMT | **VERIFIED** | UpSkill Africa / Celo posts; TradingView Coindar kickoff note |
 | Kickoff Aug 28 2026 | **VERIFIED** | Same posts |
-| Registration via `npx skills add https://celobuilders.xyz` | **VERIFIED** | Hackathon posts |
+| Registration via `npx skills add https://celobuilders.xyz` then agent register | **VERIFIED** | Live skill.md + UpSkill Africa posts; slug `agents-at-work` |
+| Registration site agentscooking.xyz | **REJECTED** | Wrong site — official is celobuilders.xyz agent-native flow |
 | Attribution tags for leaderboard | **VERIFIED** | docs.celo.org/build-on-celo/attribution-tags; `@celo/attribution-tags` |
 | Attribution standard = ERC-8021 | **VERIFIED** | Celo attribution docs |
 | ERC-8004 = agent identity/reputation registries | **VERIFIED** | docs.celo.org/build-on-celo/build-with-ai/8004 |

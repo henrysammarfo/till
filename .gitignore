@@ -35,3 +35,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local agent skills install
+.agents/
+skills-lock.json
