@@ -93,7 +93,7 @@ async function main() {
         next: [
           "Set PUBLIC_APP_URL to your deployed HTTPS origin",
           "bun run register:telegram",
-          "Register on https://agentscooking.xyz — then set CELO_ATTRIBUTION_TAG + CELO_AGENT_WALLET",
+          "Register via npx skills add https://celobuilders.xyz — then set CELO_ATTRIBUTION_TAG + CELO_AGENT_WALLET",
           "bun run register:agent",
           "Telegram: send 5 cNGN to 0xIndependentCounterparty",
         ],

@@ -21,7 +21,7 @@ Put only in `.env` / host secrets — **never** commit.
 | 7 | `CELO_AGENT_PRIVATE_KEY` | Now (relayer key — fund with CELO or USDC for gas) |
 | 8 | `CNGN_TOKEN_ADDRESS` | Now — **only after Celoscan/official verify** |
 | 9 | `X402_API_KEY` | When claiming x402 settle |
-| 10 | `CELO_ATTRIBUTION_TAG` | **After** https://agentscooking.xyz register |
+| 10 | `CELO_ATTRIBUTION_TAG` | **After** agent-native register via https://celobuilders.xyz |
 | 11 | `CELO_AGENT_WALLET` | **After** contest register (must match declared wallet) |
 | 12 | `CELO_ERC8004_URL` | Optional; defaults to repo registration.json |
 | 13 | `AGENTROUTER_API_KEY` | Optional (structured Telegram cmds work without NL) |
@@ -56,7 +56,7 @@ bun run bootstrap:tenant -- \
   --agent-wallet 0xYourAgentWallet
 ```
 
-Use the **same** agent wallet you will declare on agentscooking.xyz.
+Use the **same** agent wallet you will declare when registering via celobuilders.xyz.
 
 ---
 
@@ -103,17 +103,23 @@ Confirm `getWebhookInfo` URL matches.
 
 ## 6. Contest register (attribution + wallet)
 
-1. Register agent at https://agentscooking.xyz
-2. Set env:
+Official path (no Google Form / not agentscooking.xyz):
+
+1. Install Celo Builders skill: `npx skills add https://celobuilders.xyz`
+2. Ask your coding agent to register you for **Celo Agents at Work**
+3. Save the issued **attribution tag** + declared **agent wallet**
+4. Set env:
    - `CELO_ATTRIBUTION_TAG=<your contest tag>`
    - `CELO_AGENT_WALLET=0x…` (same as bootstrap)
-3. Persist into DB:
+5. Persist into DB:
 
 ```bash
 bun run register:agent
 ```
 
 ERC-8004 card is already at `public/agent/registration.json` — publish/point `CELO_ERC8004_URL` if required.
+
+Refs: https://celobuilders.xyz · Dune: https://dune.com/celo/agents-at-work-hackathon
 
 ---
 
