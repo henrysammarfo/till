@@ -12,6 +12,13 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportRuntimeError } from "../lib/runtime-error-reporting";
 
+const SITE_URL = (
+  process.env.VITE_PUBLIC_APP_URL ||
+  process.env.PUBLIC_APP_URL ||
+  "https://till-topaz.vercel.app"
+).replace(/\/$/, "");
+const OG_IMAGE = `${SITE_URL}/og.png`;
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
