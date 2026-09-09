@@ -231,6 +231,270 @@ export type Database = {
         }
         Relationships: []
       }
+      tenants: {
+        Row: { id: string; slug: string; name: string; created_at: string; updated_at: string }
+        Insert: { id?: string; slug: string; name: string; created_at?: string; updated_at?: string }
+        Update: { id?: string; slug?: string; name?: string; created_at?: string; updated_at?: string }
+        Relationships: []
+      }
+      tenant_members: {
+        Row: {
+          id: string
+          tenant_id: string
+          user_id: string
+          role: Database["public"]["Enums"]["tenant_role"]
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id: string
+          user_id: string
+          role?: Database["public"]["Enums"]["tenant_role"]
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          user_id?: string
+          role?: Database["public"]["Enums"]["tenant_role"]
+          created_at?: string
+        }
+        Relationships: []
+      }
+      agent_config: {
+        Row: {
+          id: string
+          tenant_id: string
+          attribution_tag: string | null
+          agent_wallet: string | null
+          erc8004_url: string | null
+          erc8004_agent_id: string | null
+          telegram_bot_username: string | null
+          primary_track: string
+          other_wallets: Json
+          own_contracts: Json
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id: string
+          attribution_tag?: string | null
+          agent_wallet?: string | null
+          erc8004_url?: string | null
+          erc8004_agent_id?: string | null
+          telegram_bot_username?: string | null
+          primary_track?: string
+          other_wallets?: Json
+          own_contracts?: Json
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          attribution_tag?: string | null
+          agent_wallet?: string | null
+          erc8004_url?: string | null
+          erc8004_agent_id?: string | null
+          telegram_bot_username?: string | null
+          primary_track?: string
+          other_wallets?: Json
+          own_contracts?: Json
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      counterparties: {
+        Row: {
+          id: string
+          tenant_id: string
+          wallet_address: string
+          label: string | null
+          telegram_user_id: string | null
+          independence_status: string
+          first_seen_on_celo: string | null
+          notes: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id: string
+          wallet_address: string
+          label?: string | null
+          telegram_user_id?: string | null
+          independence_status?: string
+          first_seen_on_celo?: string | null
+          notes?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          wallet_address?: string
+          label?: string | null
+          telegram_user_id?: string | null
+          independence_status?: string
+          first_seen_on_celo?: string | null
+          notes?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
+      till_jobs: {
+        Row: {
+          id: string
+          tenant_id: string
+          telegram_chat_id: string | null
+          telegram_user_id: string | null
+          payer_wallet: string | null
+          counterparty_id: string | null
+          counterparty_wallet: string
+          asset: Database["public"]["Enums"]["till_asset"]
+          amount_atomic: string
+          amount_display: string | null
+          status: Database["public"]["Enums"]["till_job_status"]
+          intent_raw: string | null
+          authorization_payload: Json | null
+          error_message: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id: string
+          telegram_chat_id?: string | null
+          telegram_user_id?: string | null
+          payer_wallet?: string | null
+          counterparty_id?: string | null
+          counterparty_wallet: string
+          asset: Database["public"]["Enums"]["till_asset"]
+          amount_atomic: string
+          amount_display?: string | null
+          status?: Database["public"]["Enums"]["till_job_status"]
+          intent_raw?: string | null
+          authorization_payload?: Json | null
+          error_message?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          telegram_chat_id?: string | null
+          telegram_user_id?: string | null
+          payer_wallet?: string | null
+          counterparty_id?: string | null
+          counterparty_wallet?: string
+          asset?: Database["public"]["Enums"]["till_asset"]
+          amount_atomic?: string
+          amount_display?: string | null
+          status?: Database["public"]["Enums"]["till_job_status"]
+          intent_raw?: string | null
+          authorization_payload?: Json | null
+          error_message?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      till_transactions: {
+        Row: {
+          id: string
+          tenant_id: string
+          job_id: string | null
+          tx_hash: string
+          asset: Database["public"]["Enums"]["till_asset"]
+          amount_atomic: string
+          amount_display: string | null
+          from_wallet: string
+          to_wallet: string
+          path: string
+          attribution_tag: string | null
+          attribution_verified: boolean
+          fee_currency: string | null
+          celoscan_url: string | null
+          block_number: number | null
+          confirmed_at: string | null
+          raw: Json
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id: string
+          job_id?: string | null
+          tx_hash: string
+          asset: Database["public"]["Enums"]["till_asset"]
+          amount_atomic: string
+          amount_display?: string | null
+          from_wallet: string
+          to_wallet: string
+          path?: string
+          attribution_tag?: string | null
+          attribution_verified?: boolean
+          fee_currency?: string | null
+          celoscan_url?: string | null
+          block_number?: number | null
+          confirmed_at?: string | null
+          raw?: Json
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          job_id?: string | null
+          tx_hash?: string
+          asset?: Database["public"]["Enums"]["till_asset"]
+          amount_atomic?: string
+          amount_display?: string | null
+          from_wallet?: string
+          to_wallet?: string
+          path?: string
+          attribution_tag?: string | null
+          attribution_verified?: boolean
+          fee_currency?: string | null
+          celoscan_url?: string | null
+          block_number?: number | null
+          confirmed_at?: string | null
+          raw?: Json
+          created_at?: string
+        }
+        Relationships: []
+      }
+      attribution_events: {
+        Row: {
+          id: string
+          tenant_id: string
+          tx_hash: string
+          codes: Json
+          schema_id: number | null
+          verified: boolean
+          verified_at: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id: string
+          tx_hash: string
+          codes?: Json
+          schema_id?: number | null
+          verified?: boolean
+          verified_at?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          tx_hash?: string
+          codes?: Json
+          schema_id?: number | null
+          verified?: boolean
+          verified_at?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -244,9 +508,30 @@ export type Database = {
         }
         Returns: boolean
       }
+      ensure_default_till_tenant: {
+        Args: { _user_id: string; _slug?: string; _name?: string }
+        Returns: string
+      }
+      is_tenant_member: { Args: { _tenant_id: string }; Returns: boolean }
+      has_tenant_role: {
+        Args: {
+          _tenant_id: string
+          _role: Database["public"]["Enums"]["tenant_role"]
+        }
+        Returns: boolean
+      }
     }
     Enums: {
       app_role: "admin" | "staff"
+      tenant_role: "owner" | "admin" | "operator" | "viewer"
+      till_job_status:
+        | "pending"
+        | "awaiting_signature"
+        | "submitting"
+        | "confirmed"
+        | "failed"
+        | "rejected"
+      till_asset: "cNGN" | "USDC" | "USDT" | "USAT" | "OTHER"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -375,6 +660,16 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "staff"],
+      tenant_role: ["owner", "admin", "operator", "viewer"],
+      till_job_status: [
+        "pending",
+        "awaiting_signature",
+        "submitting",
+        "confirmed",
+        "failed",
+        "rejected",
+      ],
+      till_asset: ["cNGN", "USDC", "USDT", "USAT", "OTHER"],
     },
   },
 } as const

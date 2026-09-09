@@ -10,7 +10,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
+import { reportRuntimeError } from "../lib/runtime-error-reporting";
 
 function NotFoundComponent() {
   return (
@@ -38,7 +38,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    reportRuntimeError(error, { boundary: "root_error_component" });
   }, [error]);
 
   return (
@@ -84,13 +84,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "TILL is a Telegram payment till settling cNGN and USA₮ to independent MiniPay wallets on Celo mainnet — tagged, ERC-8004, gas in stablecoin.",
       },
       { name: "author", content: "TILL" },
+      { name: "theme-color", content: "#0a0a0a" },
+      { name: "application-name", content: "TILL" },
+      { property: "og:site_name", content: "TILL" },
       { property: "og:title", content: "TILL® — The chat till for MiniPay" },
       {
         property: "og:description",
         content: "Say who and how much, sign once — stablecoins settle on Celo mainnet.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "/og.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "TILL — The chat till for MiniPay on Celo" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "TILL® — The chat till for MiniPay" },
+      {
+        name: "twitter:description",
+        content: "Say who and how much, sign once — stablecoins settle on Celo mainnet.",
+      },
+      { name: "twitter:image", content: "/og.png" },
+      { name: "twitter:image:alt", content: "TILL — The chat till for MiniPay on Celo" },
     ],
     links: [
       {
@@ -101,9 +115,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400;1,600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;1,400;1,600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap",
       },
-      { rel: "icon", type: "image/png", href: "/favicon.png" },
+      { rel: "icon", href: "/favicon.ico", sizes: "any" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" },
+      { rel: "icon", type: "image/png", sizes: "48x48", href: "/favicon-48x48.png" },
+      { rel: "icon", type: "image/png", sizes: "64x64", href: "/favicon.png" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+      { rel: "manifest", href: "/site.webmanifest" },
     ],
   }),
 

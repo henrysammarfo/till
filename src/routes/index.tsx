@@ -12,7 +12,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "TILL is a Telegram payment till: one chat job, one signature, cNGN or USA₮ settles on Celo mainnet — attribution-tagged, ERC-8004 identity, gas paid in stablecoin.",
+          "TILL is a Telegram payment till: one chat job, one signature, cNGN or USA₮ settles on Celo mainnet — ERC-8021 attribution-tagged, ERC-8004 identity, gas paid in stablecoin.",
       },
       { property: "og:title", content: "TILL® — The chat till for MiniPay" },
       {

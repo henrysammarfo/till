@@ -1,0 +1,15 @@
+---
+description: TILL contest doctrine — mainnet till, no mocks, no unhackable claims
+alwaysApply: true
+---
+
+# TILL Doctrine
+
+- Primary product: Telegram → MiniPay/Celo **counter-job till** (pay this person now).
+- Scoring network: **celo-mainnet only**. Register day-0; tag every user-facing tx (ERC-8021).
+- Agent identity: ERC-8004. Attribution tags ≠ 8004.
+- Track: real-world-adoption / Best Stablecoin Adoption. No Value-Moved farming.
+- **No mocks. No silent fallbacks** for payments, LLM, or chain reads in production paths.
+- Multitenant + HttpOnly sessions — no localStorage session tokens in production.
+- **Never claim unhackable.** Cite residual risk (`memory/THREAT_MODEL.md`).
+- When unsure about contest/token facts: live fact-check → update `memory/FACT_CHECK.md`.
