@@ -1,5 +1,14 @@
 # Session Log
 
+## 2026-09-09 — Vercel production + brand cleanup
+
+- Merged `cursor/till-full-stack-8d41` → `main`.
+- Removed Lovable auth/preview/telemetry; Nitro `vercel` preset; TILL favicon/OG/meta/manifest.
+- Created Vercel project `till`; production https://till-topaz.vercel.app READY; SSO protection off.
+- Local `.env` restored after merge wiped tracked secrets; `PUBLIC_APP_URL` set to production origin.
+- Env sync still needs operator `VERCEL_TOKEN` (`scripts/sync-vercel-env.sh`).
+- Residual risk only — do not claim unhackable.
+
 ## 2026-09-09 — Supabase migration applied; tenant + agent_config live
 
 - Confirmed tables on `goxtltzqwtluiqhpwupw`.
