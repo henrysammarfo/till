@@ -16,20 +16,24 @@
 - x402 facilitator client + `/api/x402/supported` (USA₮ gated — not in live `/supported`)
 - Studio dashboards bound to live till tables (mocks removed)
 - ERC-8004 Identity Registry mint on Celo mainnet — **agentId `9825`**
-- ERC-8004 registration file at `public/agent/registration.json` (wallet + agentId + Celoscan/8004scan URLs)
-- Dedicated agent wallet funded on mainnet (~1.96 CELO after mint gas): `0x2879FBd50aBefb979270D2FFFD34d9ce1CecfF59`
+- ERC-8004 registration file at `public/agent/registration.json`
+- Dedicated agent wallet funded on mainnet: `0x2879FBd50aBefb979270D2FFFD34d9ce1CecfF59`
+- **Celo Builders claim + draft submission** for `agents-at-work`
+  - Attribution tag: `celo_f30ff80110c6` (saved in `.env` as `CELO_ATTRIBUTION_TAG`)
+  - Track: `real-world-adoption`
+  - Status: **draft** (not published yet)
 - Operator scripts: `bootstrap:tenant`, `register:telegram`, `register:agent`, `smoke:verify-tx`
-- `/api/health` + `/api/ready` (env presence + live Celo RPC + Supabase probes)
+- `/api/health` + `/api/ready`
 - Unit tests + smokes; `bun run build` clean
 
-## Blockers (need your input / keys)
+## Blockers (need your keys / actions)
 
-1. **Google claim code** for celobuilders.xyz (`CELO-…`) → then draft submission → `CELO_ATTRIBUTION_TAG`
-2. Make GitHub repo **public** before publish (draft registration may still work private)
+1. `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` + apply multitenant migration → then `bun run register:agent`
+2. Make GitHub repo **public** before publish
 3. `TELEGRAM_BOT_TOKEN` + `TELEGRAM_WEBHOOK_SECRET`
-4. `SUPABASE_SERVICE_ROLE_KEY` + apply multitenant migration
-5. Verified `CNGN_TOKEN_ADDRESS` (+ `USAT_TOKEN_ADDRESS` if claiming USA₮)
-6. `X402_API_KEY`, `PUBLIC_APP_URL`
+4. Verified `CNGN_TOKEN_ADDRESS` (+ `USAT_TOKEN_ADDRESS` if claiming USA₮)
+5. `X402_API_KEY`, `PUBLIC_APP_URL`
+6. First tagged mainnet MiniPay settle + `smoke:verify-tx`
 7. TinyFish credits / AgentRouter reachable network (structured intents work without NL)
 
 ## Security

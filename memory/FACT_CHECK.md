@@ -35,6 +35,8 @@ Only verified or explicitly marked **UNVERIFIED** claims live here. Update when 
 | Agent wallet `0x2879FBd50aBefb979270D2FFFD34d9ce1CecfF59` funded on mainnet | **VERIFIED** | Forno `eth_getBalance` ≈ 1.96 CELO; nonce 1 |
 | ERC-8004 Identity agentId `9825` on registry `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432` | **VERIFIED** | Mint tx + Celoscan NFT URL in env / registration.json |
 | Env private key matches agent wallet | **VERIFIED** | `viem` `privateKeyToAccount` derivation |
+| Contest attribution tag `celo_f30ff80110c6` | **VERIFIED** | `PUT /submissions/me` draft response for agents-at-work |
+| Submission status draft (not published) | **VERIFIED** | Same API response `status: draft`, `publishedAt: null` |
 
 ## Security language
 

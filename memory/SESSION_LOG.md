@@ -1,5 +1,14 @@
 # Session Log
 
+## 2026-09-09 — Contest draft registered (attribution tag locked)
+
+- Google claim completed for jasonneil4040@gmail.com; connection credential stored only in `.env` (not committed).
+- Draft submission saved on celobuilders.xyz: project **TILL**, track `real-world-adoption`, wallet `0x2879FBd50aBefb979270D2FFFD34d9ce1CecfF59`, ERC-8004 Celoscan NFT for agent **9825**.
+- Attribution tag issued and locked: `celo_f30ff80110c6` → `CELO_ATTRIBUTION_TAG` in `.env`.
+- `bun run register:agent` still blocked on missing `SUPABASE_SERVICE_ROLE_KEY`.
+- Optional perk noted: Chainstack Growth coupon `AGENTSATWORK` (ends with hackathon); Forno remains fine.
+- Residual risk only — do not claim unhackable.
+
 ## 2026-09-09 — Agent wallet funded + ERC-8004 on file
 
 - Confirmed dedicated agent wallet `0x2879FBd50aBefb979270D2FFFD34d9ce1CecfF59` funded on Celo mainnet (~1.96 CELO; nonce 1 after Identity mint).
