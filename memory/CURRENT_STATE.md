@@ -1,30 +1,25 @@
 # TILL — Current State
 
 **Updated:** 2026-09-09  
-**Branch:** `cursor/till-full-stack-8d41`  
-**Plan:** Option A full stack
+**Branch:** `main` (+ `cursor/vercel-prod-url-8d41`)  
+**Production:** https://till-topaz.vercel.app
 
-## Live contest identity
+## Live
 
-- Agent wallet: `0x2879FBd50aBefb979270D2FFFD34d9ce1CecfF59`
-- ERC-8004 agentId: `9825`
-- Attribution tag: `celo_f30ff80110c6` (draft on celobuilders)
-- Primary track: `real-world-adoption`
+- Vercel project `till` (`prj_ANRWCjtvOqZGJkwrSo540kzs05au`) — production READY
+- Deployment protection disabled (public MiniPay / Telegram webhooks)
+- Favicon / apple-touch / OG / twitter / webmanifest live
+- `/api/health` → ok
+- Contest draft: tag `celo_f30ff80110c6`, wallet `0x2879…fF59`, ERC-8004 **9825**
+- Supabase `goxtltzqwtluiqhpwupw` tenant `till` + agent_config live
 
-## Supabase (goxtltzqwtluiqhpwupw)
+## Blocked
 
-- Multitenant migration applied — tables live
-- Tenant `till` id `9ac9bbbc-6222-41d1-a2a7-da859e2c0585`
-- `agent_config` has tag + wallet + ERC-8004 URL/id (`bootstrap:tenant` + `register:agent` OK)
-
-## Next blockers
-
-1. Deploy + `PUBLIC_APP_URL` (HTTPS)
-2. `TELEGRAM_BOT_TOKEN` + `TELEGRAM_WEBHOOK_SECRET` → `bun run register:telegram`
+1. **Vercel env sync** — paste a `VERCEL_TOKEN` (or set vars in Vercel UI), then `bash scripts/sync-vercel-env.sh` and redeploy
+2. Telegram bot token + webhook secret → `register:telegram`
 3. Verified `CNGN_TOKEN_ADDRESS`
-4. First tagged MiniPay settle + `smoke:verify-tx`
-5. Make GitHub public before publish submission
+4. First tagged MiniPay settle
 
 ## Security
 
-Residual risk only — **not unhackable**. See `memory/THREAT_MODEL.md`.
+Residual risk only — **not unhackable**.

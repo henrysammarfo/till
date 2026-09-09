@@ -100,7 +100,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "Say who and how much, sign once — stablecoins settle on Celo mainnet.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "/og.png" },
+      { property: "og:url", content: SITE_URL },
+      { property: "og:image", content: OG_IMAGE },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: "TILL — The chat till for MiniPay on Celo" },
@@ -110,7 +111,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "twitter:description",
         content: "Say who and how much, sign once — stablecoins settle on Celo mainnet.",
       },
-      { name: "twitter:image", content: "/og.png" },
+      { name: "twitter:image", content: OG_IMAGE },
       { name: "twitter:image:alt", content: "TILL — The chat till for MiniPay on Celo" },
     ],
     links: [
