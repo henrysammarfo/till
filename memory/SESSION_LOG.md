@@ -1,5 +1,14 @@
 # Session Log
 
+## 2026-09-09 — Supabase project switched; awaiting migration
+
+- Operator provided new Supabase project `goxtltzqwtluiqhpwupw` (service role + publishable saved only in `.env`).
+- REST probe OK; multitenant tables not present yet (`PGRST205`).
+- Cannot apply SQL with service role alone — need SQL Editor run of `20260904140000_till_multitenant.sql`.
+- Previous project id `ojyxkoxuamkocuwyvnjj` superseded in env + `supabase/config.toml`.
+- Secrets were pasted in chat — rotate service_role after go-live when practical.
+- Residual risk only — do not claim unhackable.
+
 ## 2026-09-09 — Contest draft registered (attribution tag locked)
 
 - Google claim completed for jasonneil4040@gmail.com; connection credential stored only in `.env` (not committed).
