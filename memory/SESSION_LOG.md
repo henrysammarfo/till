@@ -1,5 +1,13 @@
 # Session Log
 
+## 2026-09-09 — Supabase migration applied; tenant + agent_config live
+
+- Confirmed tables on `goxtltzqwtluiqhpwupw`.
+- `bun run bootstrap:tenant` created tenant `till` (`9ac9bbbc-…`) with attribution `celo_f30ff80110c6` and agent wallet.
+- `bun run register:agent` OK; set `erc8004_agent_id=9825`.
+- Next: deploy URL, Telegram bot token/webhook secret, verified cNGN address, first tagged settle.
+- Residual risk only — do not claim unhackable.
+
 ## 2026-09-09 — Supabase project switched; awaiting migration
 
 - Operator provided new Supabase project `goxtltzqwtluiqhpwupw` (service role + publishable saved only in `.env`).

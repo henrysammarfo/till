@@ -51,3 +51,10 @@ Only verified or explicitly marked **UNVERIFIED** claims live here. Update when 
 | Tavily search | Works with provided key (rotate after chat exposure) |
 | TinyFish Agent API | Auth OK; **0 credits** on prior key — need new key/credits |
 | AgentRouter `/v1/chat/completions` from this Cloud Agent host | **BLOCKED (Aliyun WAF HTML, 2026-09-04)** | Live probe returns captcha HTML despite fingerprint headers. Structured till intents still work without NL. No LLM fallback. |
+
+## Supabase tenant (verified 2026-09-09)
+
+| Claim | Verdict | Evidence |
+|---|---|---|
+| Multitenant tables exist on project `goxtltzqwtluiqhpwupw` | **VERIFIED** | REST select on tenants/agent_config/till_* |
+| Tenant slug `till` bootstrapped with tag `celo_f30ff80110c6` | **VERIFIED** | bootstrap:tenant + register:agent JSON |
