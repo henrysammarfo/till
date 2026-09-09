@@ -39,3 +39,6 @@ dist-ssr
 # Local agent skills install
 .agents/
 skills-lock.json
+
+# Vercel
+.vercel

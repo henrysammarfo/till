@@ -62,7 +62,7 @@ Use the **same** agent wallet you will declare when registering via celobuilders
 
 ## 3. Deploy app + set `PUBLIC_APP_URL`
 
-Deploy the app (Lovable / your host). Then set:
+Deploy the app on Vercel (or your HTTPS host). Then set:
 
 ```bash
 PUBLIC_APP_URL=https://your-real-https-domain.example
