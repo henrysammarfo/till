@@ -23,7 +23,12 @@
   ],
   "x402Support": true,
   "active": true,
-  "registrations": [],
+  "registrations": [
+    {
+      "agentId": "9825",
+      "agentRegistry": "eip155:42220:0x8004A169FB4a3325136EB29fA0ceB6D2e539a432"
+    }
+  ],
   "supportedTrust": [
     "reputation"
   ],
@@ -33,6 +38,9 @@
     "attributionStandard": "ERC-8021",
     "agentStandard": "ERC-8004",
     "securityPosture": "residual-risk-documented-not-unhackable",
-    "agentWallet": "0x2879FBd50aBefb979270D2FFFD34d9ce1CecfF59"
+    "agentWallet": "0x2879FBd50aBefb979270D2FFFD34d9ce1CecfF59",
+    "erc8004AgentId": "9825",
+    "erc8004Url": "https://celoscan.io/nft/0x8004a169fb4a3325136eb29fa0ceb6d2e539a432/9825",
+    "scan8004": "https://8004scan.io/agents/celo/9825"
   }
 }

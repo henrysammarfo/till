@@ -1,5 +1,13 @@
 # Session Log
 
+## 2026-09-09 — Agent wallet funded + ERC-8004 on file
+
+- Confirmed dedicated agent wallet `0x2879FBd50aBefb979270D2FFFD34d9ce1CecfF59` funded on Celo mainnet (~1.96 CELO; nonce 1 after Identity mint).
+- Private key in `.env` derives to that address (match verified; key never pasted in chat).
+- ERC-8004 agentId `9825` already minted; `public/agent/registration.json` updated with registry + Celoscan/8004scan URLs.
+- Still blocked on Google claim (`CELO-…`) for celobuilders.xyz → attribution tag → `register:agent`.
+- Residual risk only — do not claim unhackable.
+
 ## 2026-09-04 — Full-stack Option A kickoff
 
 - Locked plan Option A: marketing + multi-tenant Studio + live Telegram till + cNGN EIP-3009 + attribution + ERC-8004 + fee abstraction + x402.

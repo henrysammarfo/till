@@ -1,6 +1,6 @@
 # TILL — Current State
 
-**Updated:** 2026-09-05  
+**Updated:** 2026-09-09  
 **Branch:** `cursor/till-full-stack-8d41`  
 **Plan:** Option A full stack
 
@@ -15,19 +15,22 @@
 - Celo modules: attribution (ERC-8021), EIP-3009 settle, fee abstraction (USDC/USDT only), MiniPay
 - x402 facilitator client + `/api/x402/supported` (USA₮ gated — not in live `/supported`)
 - Studio dashboards bound to live till tables (mocks removed)
-- ERC-8004 registration file at `public/agent/registration.json`
+- ERC-8004 Identity Registry mint on Celo mainnet — **agentId `9825`**
+- ERC-8004 registration file at `public/agent/registration.json` (wallet + agentId + Celoscan/8004scan URLs)
+- Dedicated agent wallet funded on mainnet (~1.96 CELO after mint gas): `0x2879FBd50aBefb979270D2FFFD34d9ce1CecfF59`
 - Operator scripts: `bootstrap:tenant`, `register:telegram`, `register:agent`, `smoke:verify-tx`
 - `/api/health` + `/api/ready` (env presence + live Celo RPC + Supabase probes)
 - Unit tests + smokes; `bun run build` clean
 
-## Blockers (need your keys)
+## Blockers (need your input / keys)
 
-- `TELEGRAM_BOT_TOKEN` + `TELEGRAM_WEBHOOK_SECRET`
-- `SUPABASE_SERVICE_ROLE_KEY` + apply multitenant migration
-- `CELO_AGENT_PRIVATE_KEY`, `CELO_ATTRIBUTION_TAG`, `CELO_AGENT_WALLET` (after contest register)
-- Verified `CNGN_TOKEN_ADDRESS` (+ `USAT_TOKEN_ADDRESS` if claiming USA₮)
-- `X402_API_KEY`, `PUBLIC_APP_URL`
-- TinyFish credits / AgentRouter reachable network (structured intents work without NL)
+1. **Google claim code** for celobuilders.xyz (`CELO-…`) → then draft submission → `CELO_ATTRIBUTION_TAG`
+2. Make GitHub repo **public** before publish (draft registration may still work private)
+3. `TELEGRAM_BOT_TOKEN` + `TELEGRAM_WEBHOOK_SECRET`
+4. `SUPABASE_SERVICE_ROLE_KEY` + apply multitenant migration
+5. Verified `CNGN_TOKEN_ADDRESS` (+ `USAT_TOKEN_ADDRESS` if claiming USA₮)
+6. `X402_API_KEY`, `PUBLIC_APP_URL`
+7. TinyFish credits / AgentRouter reachable network (structured intents work without NL)
 
 ## Security
 

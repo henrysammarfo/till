@@ -28,6 +28,14 @@ Only verified or explicitly marked **UNVERIFIED** claims live here. Update when 
 | USDT fee adapter mainnet `0x0e2a3e05bc9a16f5292a6170456a710cb89c6f72` | **VERIFIED** | docs.celo.org fee-abstraction celocli example |
 | cNGN / USA₮ fee adapters | **UNVERIFIED** — fail closed in code until listed | — |
 
+## Agent identity (verified 2026-09-09)
+
+| Claim | Verdict | Evidence |
+|---|---|---|
+| Agent wallet `0x2879FBd50aBefb979270D2FFFD34d9ce1CecfF59` funded on mainnet | **VERIFIED** | Forno `eth_getBalance` ≈ 1.96 CELO; nonce 1 |
+| ERC-8004 Identity agentId `9825` on registry `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432` | **VERIFIED** | Mint tx + Celoscan NFT URL in env / registration.json |
+| Env private key matches agent wallet | **VERIFIED** | `viem` `privateKeyToAccount` derivation |
+
 ## Security language
 
 | Claim | Verdict |
