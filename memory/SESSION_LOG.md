@@ -1,5 +1,13 @@
 # Session Log
 
+## 2026-09-10 — Vercel env synced + production redeploy
+
+- Upserted 23 runtime secrets to Vercel project `till` (production + preview) via API; skipped empty Telegram/cNGN/x402.
+- Redeployed production → https://till-topaz.vercel.app READY.
+- `/api/health` ok; `/api/ready` missing: `telegramBotToken`, `telegramWebhookSecret`, `cngnToken`.
+- Celo RPC + Supabase live probes green; attribution tag + agent key present.
+- Residual risk only — do not claim unhackable.
+
 ## 2026-09-09 — Vercel production + brand cleanup
 
 - Merged `cursor/till-full-stack-8d41` → `main`.
