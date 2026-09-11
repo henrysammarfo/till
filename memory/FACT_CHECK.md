@@ -58,3 +58,12 @@ Only verified or explicitly marked **UNVERIFIED** claims live here. Update when 
 |---|---|---|
 | Multitenant tables exist on project `goxtltzqwtluiqhpwupw` | **VERIFIED** | REST select on tenants/agent_config/till_* |
 | Tenant slug `till` bootstrapped with tag `celo_f30ff80110c6` | **VERIFIED** | bootstrap:tenant + register:agent JSON |
+
+## Tokens (verified 2026-09-11)
+
+| Claim | Verdict | Evidence |
+|---|---|---|
+| Official ASC cNGN on Celo mainnet `0xF6829D7393dAe24509eb1E52eE8e572e2E271a4f` | **VERIFIED** | docs.cngn.co/guides/contract-addresses.md + on-chain name/symbol `cNGN` / 6 decimals |
+| Mento NGNm `0xE2702Bd97ee33c88c8f6f92DA3B733608aa76F71` is not ASC cNGN | **VERIFIED** | on-chain symbol `NGNm` / name `Mento Nigerian Naira`; Celo token-contracts docs |
+| Telegram bot `@TillPay_bot` | **VERIFIED** | Bot API `getMe` ok |
+
