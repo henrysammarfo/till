@@ -1,21 +1,19 @@
 # TILL — Current State
 
-**Updated:** 2026-09-10  
+**Updated:** 2026-09-11  
 **Production:** https://till-topaz.vercel.app
 
-## Live
+## Done locally
 
-- Vercel env synced (Supabase, Celo agent key/tag/wallet, PUBLIC_APP_URL, USDC/USDT, AgentRouter)
-- `/api/health` ok · Celo RPC + Supabase probes green
-- Contest: `celo_f30ff80110c6` · wallet `0x2879…fF59` · ERC-8004 **9825**
+- Telegram bot `@TillPay_bot` saved; webhook secret generated (64 hex)
+- Webhook registered → `https://till-topaz.vercel.app/api/telegram/webhook`
+- Official cNGN Celo mainnet: `0xF6829D7393dAe24509eb1E52eE8e572e2E271a4f` (docs.cngn.co + on-chain)
 
-## Missing for `/api/ready`
+## Blocked
 
-1. `TELEGRAM_BOT_TOKEN` + `TELEGRAM_WEBHOOK_SECRET`
-2. Verified `CNGN_TOKEN_ADDRESS`
-
-Then: `bun run register:telegram` → first tagged MiniPay settle.
+- **Fresh Vercel token needed** — previous 1-day token lost team scope (403). Paste a new token so Telegram/cNGN env can be pushed + redeployed.
+- Until then production `/api/ready` still missing telegram + cngn env on Vercel (local `.env` has them).
 
 ## Security
 
-Residual risk only — **not unhackable**.
+Residual risk only — **not unhackable**. Rotate Telegram token if it remains exposed in chat after go-live.
