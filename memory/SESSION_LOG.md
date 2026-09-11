@@ -96,3 +96,10 @@
 - Corrected agent/contact/product/settings identity strings to live tag/wallet/repo
 - Added privacy, terms, how-it-works redirect, sitemap.xml
 - Regenerated favicons/OG; IBM Plex Sans; Navbar ChevronDown; footer links complete
+
+## 2026-09-11 18:31 UTC — public repo + first live settle job + Tavily
+- Confirmed GitHub repo public
+- Synced `TAVILY_API_KEY` to Vercel production and redeployed (`tavilyKey: true`)
+- Requested `X402_API_KEY` from operator (not in env yet)
+- Created till job `44708a3c-8ce6-4377-be63-3cd7e1bbc54f` for 1 cNGN → `0x13b239a267b061c60c9dcaF0071C305b47E4AcBa`; pay URL ready for MiniPay signature
+- Secret rotation postponed until after hackathon

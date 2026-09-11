@@ -74,3 +74,9 @@ Only verified or explicitly marked **UNVERIFIED** claims live here. Update when 
 - GitHub links point to `henrysammarfo/till`
 - Telegram bot `@TillPay_bot` from env username
 - Build passes with new privacy/terms routes
+
+## Verified 2026-09-11 (partial)
+- GitHub `henrysammarfo/till` is **public**
+- Production `/api/ready` reports `tavilyKey: true` after Vercel env sync
+- Live MiniPay settle: job created, **signature pending** — attribution not yet verified on-chain
+- `x402ApiKey` still false until operator pastes key
