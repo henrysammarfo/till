@@ -54,7 +54,8 @@ function PortalPage() {
       lede="Your portal code came with the kickoff email. It shows live stage, progress and every update we publish."
     >
       <div className="section-tight">
-        <div className="card" style={{ maxWidth: 520 }}>
+        <div className="wrap">
+        <div className="card" style={{ maxWidth: 520, margin: "0 auto" }}>
           <form onSubmit={submit}>
             <div className="field">
               <label className="label" htmlFor="code">
@@ -142,6 +143,7 @@ function PortalPage() {
             </div>
           </div>
         )}
+      </div>
       </div>
     </PageShell>
   );

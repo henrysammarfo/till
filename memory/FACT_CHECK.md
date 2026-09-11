@@ -67,3 +67,10 @@ Only verified or explicitly marked **UNVERIFIED** claims live here. Update when 
 | Mento NGNm `0xE2702Bd97ee33c88c8f6f92DA3B733608aa76F71` is not ASC cNGN | **VERIFIED** | on-chain symbol `NGNm` / name `Mento Nigerian Naira`; Celo token-contracts docs |
 | Telegram bot `@TillPay_bot` | **VERIFIED** | Bot API `getMe` ok |
 
+
+## Verified 2026-09-11
+- Attribution tag in UI = `.env` `CELO_ATTRIBUTION_TAG` = `celo_f30ff80110c6`
+- Agent wallet short form matches `CELO_AGENT_WALLET`
+- GitHub links point to `henrysammarfo/till`
+- Telegram bot `@TillPay_bot` from env username
+- Build passes with new privacy/terms routes

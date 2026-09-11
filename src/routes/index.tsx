@@ -35,15 +35,15 @@ const tickerItems = [
 
 const partners = [
   { name: "MiniPay", font: "system-ui", weight: 800 },
-  { name: "Celo", font: "Inter", weight: 600 },
+  { name: "Celo", font: "IBM Plex Sans", weight: 600 },
   { name: "cNGN", font: "Georgia", weight: 500 },
   { name: "Tether", font: "system-ui", weight: 600 },
-  { name: "Opera", font: "Inter", weight: 700 },
+  { name: "Opera", font: "IBM Plex Sans", weight: 700 },
   { name: "x402", font: "Source Serif 4", weight: 600 },
-  { name: "Chainstack", font: "Inter", weight: 600 },
+  { name: "Chainstack", font: "IBM Plex Sans", weight: 600 },
   { name: "Ripio", font: "Georgia", weight: 700 },
   { name: "Para", font: "system-ui", weight: 800 },
-  { name: "Forno", font: "Inter", weight: 600 },
+  { name: "Forno", font: "IBM Plex Sans", weight: 600 },
 ];
 
 function Index() {
