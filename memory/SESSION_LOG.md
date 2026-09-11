@@ -1,5 +1,12 @@
 # Session Log
 
+## 2026-09-11 — Telegram + cNGN pushed to Vercel; production redeployed
+
+- Fresh Vercel token used to upsert Telegram bot/secret + official ASC cNGN address and redeploy.
+- Webhook already pointed at production; `/api/ready` rechecked after deploy.
+- Next: first independent MiniPay tagged settle.
+- Residual risk only — do not claim unhackable.
+
 ## 2026-09-10 — Vercel env synced + production redeploy
 
 - Upserted 23 runtime secrets to Vercel project `till` (production + preview) via API; skipped empty Telegram/cNGN/x402.
