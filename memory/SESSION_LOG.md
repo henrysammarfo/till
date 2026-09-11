@@ -103,3 +103,9 @@
 - Requested `X402_API_KEY` from operator (not in env yet)
 - Created till job `44708a3c-8ce6-4377-be63-3cd7e1bbc54f` for 1 cNGN → `0x13b239a267b061c60c9dcaF0071C305b47E4AcBa`; pay URL ready for MiniPay signature
 - Secret rotation postponed until after hackathon
+
+## 2026-09-11 21:03 UTC — first tagged mainnet settle verified
+- Sent 0.05 CELO from agent wallet with attribution suffix `celo_f30ff80110c6`
+- Tx 0x7d0221dfe80738d5ea59067e0904e599cbbedd1d9573fd2cc372aaabb7ad9b7b — verifyTx OK
+- MiniPay user-sign not required for this attribution proof; used CELO balance as requested
+- x402 key still outstanding; Tavily already live

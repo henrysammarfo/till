@@ -80,3 +80,9 @@ Only verified or explicitly marked **UNVERIFIED** claims live here. Update when 
 - Production `/api/ready` reports `tavilyKey: true` after Vercel env sync
 - Live MiniPay settle: job created, **signature pending** — attribution not yet verified on-chain
 - `x402ApiKey` still false until operator pastes key
+
+## Verified 2026-09-11
+- Live tagged mainnet tx `0x7d0221dfe80738d5ea59067e0904e599cbbedd1d9573fd2cc372aaabb7ad9b7b` includes `celo_f30ff80110c6` via `@celo/attribution-tags` verifyTx
+- Celoscan: https://celoscan.io/tx/0x7d0221dfe80738d5ea59067e0904e599cbbedd1d9573fd2cc372aaabb7ad9b7b
+- Residual: this settle was agent-wallet CELO (not MiniPay EIP-3009 / cNGN). Product MiniPay loop still unproven end-to-end.
+- `tavilyKey: true` on production ready; `x402ApiKey: false`

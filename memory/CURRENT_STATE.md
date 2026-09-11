@@ -18,17 +18,27 @@
 - Favicons regenerated from till-mark (no solid-black tab icon); IBM Plex Sans wired; menu chevron corrected
 
 
-## Live settle in progress (2026-09-11)
 
-- Repo **public**: https://github.com/henrysammarfo/till
-- Tavily synced to Vercel production — `/api/ready` → `tavilyKey: true`
-- x402 API key still missing (prompted) — `x402ApiKey: false`
-- First tagged MiniPay job created (awaiting your signature):
-  - job `44708a3c-8ce6-4377-be63-3cd7e1bbc54f`
-  - amount **1 cNGN** → `0x13b239a267b061c60c9dcaF0071C305b47E4AcBa` (independent EOA, nonce 159)
-  - pay URL: https://till-topaz.vercel.app/pay?job=44708a3c-8ce6-4377-be63-3cd7e1bbc54f
-  - expected tag `celo_f30ff80110c6`
-- Secret rotation deferred until after hack
+## Live tagged settle VERIFIED (2026-09-11)
+
+- Tx: `0x7d0221dfe80738d5ea59067e0904e599cbbedd1d9573fd2cc372aaabb7ad9b7b`
+- Celoscan: https://celoscan.io/tx/0x7d0221dfe80738d5ea59067e0904e599cbbedd1d9573fd2cc372aaabb7ad9b7b
+- Tag `verifyTx` → **`celo_f30ff80110c6` present** (schemaId 0)
+- Path: agent-wallet native CELO `0.05` with ERC-8021 data suffix (used remaining CELO; MiniPay/cNGN user-sign path still optional for product demo)
+- Tavily on Vercel: yes (`tavilyKey: true`)
+- x402 API key: still missing — get from dashboard (steps below)
+- Secret rotation: after hack
+
+### x402 key steps
+1. Open https://www.x402.org/ or Celo x402 docs facilitator dashboard linked from https://docs.celo.org
+2. Create / sign in → generate API key for facilitator settle
+3. Paste as `X402_API_KEY` in Cursor cloud secrets (and we sync to Vercel)
+4. Optional: `X402_PAY_TO` = your settle receive address
+
+## Next
+1. Paste `X402_API_KEY` when you have it
+2. Publish celobuilders draft → published (repo already public)
+3. Optional: MiniPay EIP-3009 path with cNGN for product-loop demo
 
 ## Next
 
