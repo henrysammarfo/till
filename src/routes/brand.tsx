@@ -9,7 +9,7 @@ export const Route = createFileRoute("/brand")({
       {
         name: "description",
         content:
-          "The TILL brand: an italic serif wordmark, a four-bar till mark, black and white only, Inter and Source Serif 4, tight negative tracking.",
+          "The TILL brand: an italic serif wordmark, a four-bar till mark, black and white only, IBM Plex Sans and Source Serif 4, tight negative tracking.",
       },
       { property: "og:title", content: "TILL® brand system" },
       {
@@ -64,7 +64,7 @@ function BrandPage() {
             <div>
               <h2 className="h2">Typography</h2>
               <p className="body-sm" style={{ marginBottom: 22 }}>
-                Inter for everything functional. Source Serif 4 italic for the wordmark and for the
+                IBM Plex Sans for everything functional. Source Serif 4 italic for the wordmark and for the
                 one word per headline that deserves emphasis. Tracking stays negative — -0.04em for
                 UI, -0.07em for display.
               </p>
@@ -73,7 +73,7 @@ function BrandPage() {
                   Aa <span className="serif italic">Aa</span>
                 </p>
                 <p className="body-sm" style={{ marginTop: 14 }}>
-                  Inter 400/500/600/700 · Source Serif 4 400/600, roman and italic
+                  IBM Plex Sans 400/500/600/700 · Source Serif 4 400/600, roman and italic
                 </p>
               </div>
             </div>

@@ -77,6 +77,7 @@ function BookPage() {
       lede="Pick a slot that suits you. We confirm by email within one working day, and the request lands straight in our studio dashboard."
     >
       <div className="section-tight">
+        <div className="wrap">
         <div className="grid grid-2">
           <div className="card">
             {sent ? (
@@ -206,6 +207,7 @@ function BookPage() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </PageShell>
   );

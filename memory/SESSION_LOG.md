@@ -89,3 +89,10 @@
 - bun run test + smoke:attribution + bun run build green.
 - Still blocked on user keys for first live tagged mainnet settle.
 - Residual risk only — do not claim unhackable.
+
+## 2026-09-11 — sitewide links & portal bugs
+- Fixed sparse portal/book layout (missing `.wrap`)
+- Wired contact form to Supabase `bookings`
+- Corrected agent/contact/product/settings identity strings to live tag/wallet/repo
+- Added privacy, terms, how-it-works redirect, sitemap.xml
+- Regenerated favicons/OG; IBM Plex Sans; Navbar ChevronDown; footer links complete
