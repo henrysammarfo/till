@@ -20,7 +20,7 @@ Put only in `.env` / host secrets — **never** commit.
 | 6 | `PUBLIC_APP_URL` | After deploy (HTTPS origin, no trailing slash) |
 | 7 | `CELO_AGENT_PRIVATE_KEY` | Now (relayer key — fund with CELO or USDC for gas) |
 | 8 | `CNGN_TOKEN_ADDRESS` | Now — **only after Celoscan/official verify** |
-| 9 | `X402_API_KEY` | When claiming x402 settle |
+| 9 | `X402_API_KEY` (+ `X402_FACILITATOR_URL`, optional `X402_PAY_TO`) | Create at https://x402.celo.org → sync to Vercel via `scripts/sync-vercel-env.sh` (needs team-scoped `VERCEL_TOKEN`) or dashboard env + Redeploy. Confirm `/api/ready` → `x402ApiKey: true`. |
 | 10 | `CELO_ATTRIBUTION_TAG` | **After** agent-native register via https://celobuilders.xyz |
 | 11 | `CELO_AGENT_WALLET` | **After** contest register (must match declared wallet) |
 | 12 | `CELO_ERC8004_URL` | Optional; defaults to repo registration.json |
