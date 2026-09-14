@@ -86,3 +86,9 @@ Only verified or explicitly marked **UNVERIFIED** claims live here. Update when 
 - Celoscan: https://celoscan.io/tx/0x7d0221dfe80738d5ea59067e0904e599cbbedd1d9573fd2cc372aaabb7ad9b7b
 - Residual: this settle was agent-wallet CELO (not MiniPay EIP-3009 / cNGN). Product MiniPay loop still unproven end-to-end.
 - `tavilyKey: true` on production ready; `x402ApiKey: false`
+
+## Verified 2026-09-14
+- x402 facilitator `https://api.x402.celo.org` `/supported` returns kinds for `celo` / `eip155:42220`
+- Operator-issued `X402_API_KEY` authenticates `/settle` (dummy payload → 400 scheme error, not 401)
+- Production `https://till-topaz.vercel.app/api/ready` still `x402ApiKey: false` — env not on Vercel yet
+- Blocker: existing `VERCEL_TOKEN` forbidden on team `teamtitanlink` (SAML scope)

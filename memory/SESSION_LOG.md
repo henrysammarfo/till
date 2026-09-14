@@ -1,5 +1,15 @@
 # Session Log
 
+## 2026-09-14 — x402 API key received; Vercel sync blocked on SAML
+
+- Operator created `X402_API_KEY` on https://x402.celo.org (20 free mainnet settlements).
+- Key written to local `.env` (gitignored); not echoed back in chat.
+- Facilitator check: good key accepted (dummy settle → 400 `unsupported_scheme`); bad key → 401.
+- `VERCEL_TOKEN` in env is `vcp_…` and returns 403 for scope `teamtitanlink` (SAML re-auth). MCP can read the project but has no env-upsert tool.
+- Production still `x402ApiKey: false` until dashboard upsert or fresh team-scoped token + `scripts/sync-vercel-env.sh` + redeploy.
+- Residual risk only — rotate key after hack (pasted in chat).
+
+
 ## 2026-09-11 — Telegram + cNGN pushed to Vercel; production redeployed
 
 - Fresh Vercel token used to upsert Telegram bot/secret + official ASC cNGN address and redeploy.
