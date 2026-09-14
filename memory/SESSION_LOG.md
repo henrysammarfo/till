@@ -1,5 +1,13 @@
 # Session Log
 
+## 2026-09-14 — x402 live on Vercel production
+
+- Fresh team-scoped `VERCEL_TOKEN` unblocked `teamtitanlink`.
+- Upserted `X402_API_KEY` / `X402_FACILITATOR_URL` / `X402_PAY_TO`; redeployed production.
+- Confirmed https://till-topaz.vercel.app/api/ready → `x402ApiKey: true`.
+- Residual risk only — rotate x402 key + Vercel token after hack (pasted in chat).
+
+
 ## 2026-09-14 — x402 API key received; Vercel sync blocked on SAML
 
 - Operator created `X402_API_KEY` on https://x402.celo.org (20 free mainnet settlements).

@@ -43,3 +43,5 @@ skills-lock.json
 # Vercel
 .vercel
 .env*
+
+.vercel-token

@@ -18,20 +18,19 @@
 - Tag `verifyTx` → **`celo_f30ff80110c6` present** (schemaId 0)
 - Path: agent-wallet native CELO `0.05` with ERC-8021 data suffix (not MiniPay/cNGN)
 
-## x402 (2026-09-14)
+## x402 (2026-09-14) — LIVE on production
 
 - Operator created API key at https://x402.celo.org (20 free mainnet settlements)
-- Key saved in local `.env` only (gitignored). Facilitator probe: valid key → settle `400 unsupported_scheme` on dummy payload; invalid key → `401`
-- Production `/api/ready` still `x402ApiKey: false` — Vercel CLI token (`vcp_…`) gets **403 SAML scope `teamtitanlink`**, so `scripts/sync-vercel-env.sh` cannot upsert
-- Unblock: either paste a team-scoped `VERCEL_TOKEN`, or add `X402_API_KEY` / `X402_FACILITATOR_URL=https://api.x402.celo.org` / `X402_PAY_TO=<agent wallet>` in Vercel → Redeploy
-- Rotate this key after the hack (was pasted in chat)
+- Upserted `X402_API_KEY`, `X402_FACILITATOR_URL`, `X402_PAY_TO` to Vercel project `till` (prod+preview)
+- Redeployed production READY (`dpl_EyRLT82ZTpRop9VyRtrnQb71aJpP`)
+- `/api/ready` → **`x402ApiKey: true`** (with `tavilyKey: true`)
+- Rotate x402 key + Vercel token after hack (both pasted in chat)
 
 ## Next
 
-1. Sync x402 vars to Vercel + redeploy → confirm `/api/ready` `x402ApiKey: true`
-2. Publish celobuilders draft → published (repo already public)
-3. Optional: MiniPay EIP-3009/cNGN product-loop demo
-4. Post-hack secret rotation (Telegram, x402, any pasted tokens)
+1. Publish celobuilders draft → published (repo already public)
+2. Optional: MiniPay EIP-3009/cNGN product-loop demo
+3. Post-hack secret rotation (Telegram, x402, Vercel token, any pasted secrets)
 
 ## Security
 

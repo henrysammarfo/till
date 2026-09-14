@@ -90,5 +90,8 @@ Only verified or explicitly marked **UNVERIFIED** claims live here. Update when 
 ## Verified 2026-09-14
 - x402 facilitator `https://api.x402.celo.org` `/supported` returns kinds for `celo` / `eip155:42220`
 - Operator-issued `X402_API_KEY` authenticates `/settle` (dummy payload → 400 scheme error, not 401)
-- Production `https://till-topaz.vercel.app/api/ready` still `x402ApiKey: false` — env not on Vercel yet
-- Blocker: existing `VERCEL_TOKEN` forbidden on team `teamtitanlink` (SAML scope)
+- Earlier same-day: production `x402ApiKey` was false (SAML token block); later unblocked with fresh token
+
+## Verified 2026-09-14 (x402 prod)
+- Vercel env upsert + production redeploy succeeded with team-scoped token
+- https://till-topaz.vercel.app/api/ready → `x402ApiKey: true`, `tavilyKey: true`, `ready: true`
