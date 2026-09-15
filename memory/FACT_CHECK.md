@@ -98,5 +98,10 @@ Only verified or explicitly marked **UNVERIFIED** claims live here. Update when 
 
 ## Verified 2026-09-15
 - Submission deadline for agents-at-work (timeline): 2026-09-21T09:00:00.000Z
-- Draft status still `draft`; publish gated on top-level `socialLink` (x.com / twitter.com)
+- Submission was draft until socialLink set; now **published**
 - Repo https://github.com/henrysammarfo/till is public; demo https://till-topaz.vercel.app returns 200
+
+## Verified 2026-09-15 (publish)
+- `GET /submissions/me` → `status: published`, `publishedAt: 2026-09-15T04:56:39.916Z`
+- `socialLink`: https://x.com/henrysammarfo_2/status/2099721368849768591
+- `attributionTag`: `celo_f30ff80110c6`

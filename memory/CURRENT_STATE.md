@@ -26,18 +26,19 @@
 - `/api/ready` → **`x402ApiKey: true`** (with `tavilyKey: true`)
 - Rotate x402 key + Vercel token after hack (both pasted in chat)
 
-## celobuilders submission (2026-09-15)
+## celobuilders submission (2026-09-15) — PUBLISHED
 
-- Draft **fully filled** on celobuilders.xyz (Agents at Work): TILL, track `real-world-adoption`, bounties real-world + stablecoin, demo https://till-topaz.vercel.app, github public, tag `celo_f30ff80110c6`
-- `POST /submissions/me/publish` → **400** `socialLink` required (X/Twitter post tagging @CeloDevs + @Celo)
-- Deadline (timeline API): **2026-09-21 09:00 GMT**
-- Paste tweet URL → publish with `confirm: true`
+- Status **published** at `2026-09-15T04:56:39.916Z`
+- Project TILL · tag `celo_f30ff80110c6` · demo https://till-topaz.vercel.app
+- GitHub https://github.com/henrysammarfo/till · X https://x.com/henrysammarfo_2/status/2099721368849768591
+- Submission id `3534a740-5175-4412-bb5c-53404175ecf4`
+
 
 ## Next
 
-1. **BLOCKED on X/Twitter `socialLink`** — post tagging @CeloDevs + @Celo, paste URL → agent publishes immediately
-2. Optional: MiniPay EIP-3009/cNGN product-loop demo
-3. Post-hack secret rotation (Telegram, x402, Vercel token)
+1. Optional: MiniPay EIP-3009/cNGN product-loop demo
+2. Watch Dune leaderboard / AskBots if entered
+3. Post-hack secret rotation (Telegram, x402, Vercel token, anything pasted in chat)
 
 
 ## Security

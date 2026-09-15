@@ -1,5 +1,13 @@
 # Session Log
 
+## 2026-09-15 — celobuilders submission PUBLISHED
+
+- Set `socialLink` to https://x.com/henrysammarfo_2/status/2099721368849768591
+- `POST /submissions/me/publish` → status **published** (`publishedAt` 2026-09-15T04:56:39.916Z)
+- Tag `celo_f30ff80110c6` · demo https://till-topaz.vercel.app · repo public
+- Residual risk only — not unhackable. Rotate secrets after hack.
+
+
 ## 2026-09-15 — celobuilders publish blocked on socialLink
 
 - Filled draft: demo, celo-mainnet, bounties, agent notes, stablecoins, app domain.
