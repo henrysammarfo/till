@@ -95,3 +95,8 @@ Only verified or explicitly marked **UNVERIFIED** claims live here. Update when 
 ## Verified 2026-09-14 (x402 prod)
 - Vercel env upsert + production redeploy succeeded with team-scoped token
 - https://till-topaz.vercel.app/api/ready → `x402ApiKey: true`, `tavilyKey: true`, `ready: true`
+
+## Verified 2026-09-15
+- Submission deadline for agents-at-work (timeline): 2026-09-21T09:00:00.000Z
+- Draft status still `draft`; publish gated on top-level `socialLink` (x.com / twitter.com)
+- Repo https://github.com/henrysammarfo/till is public; demo https://till-topaz.vercel.app returns 200

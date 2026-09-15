@@ -1,5 +1,13 @@
 # Session Log
 
+## 2026-09-15 — celobuilders publish blocked on socialLink
+
+- Filled draft: demo, celo-mainnet, bounties, agent notes, stablecoins, app domain.
+- Publish API returns 400: `socialLink` (Twitter/X Submission Link) required.
+- Awaiting operator X post URL tagging @CeloDevs + @Celo; then `POST /submissions/me/publish` with `confirm: true`.
+- Residual risk only — not unhackable.
+
+
 ## 2026-09-14 — x402 live on Vercel production
 
 - Fresh team-scoped `VERCEL_TOKEN` unblocked `teamtitanlink`.
