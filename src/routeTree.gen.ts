@@ -17,12 +17,15 @@ import { Route as BookRouteImport } from './routes/book'
 import { Route as BrandRouteImport } from './routes/brand'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as MerchRouteImport } from './routes/merch'
 import { Route as PayRouteImport } from './routes/pay'
 import { Route as PlansRouteImport } from './routes/plans'
 import { Route as PortalRouteImport } from './routes/portal'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProductRouteImport } from './routes/product'
 import { Route as StablecoinsRouteImport } from './routes/stablecoins'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard.index'
 import { Route as AuthenticatedDashboardAgentRouteImport } from './routes/_authenticated/dashboard.agent'
@@ -73,6 +76,11 @@ const FaqRoute = FaqRouteImport.update({
   path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HowItWorksRoute = HowItWorksRouteImport.update({
+  id: '/how-it-works',
+  path: '/how-it-works',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MerchRoute = MerchRouteImport.update({
   id: '/merch',
   path: '/merch',
@@ -93,6 +101,11 @@ const PortalRoute = PortalRouteImport.update({
   path: '/portal',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductRoute = ProductRouteImport.update({
   id: '/product',
   path: '/product',
@@ -101,6 +114,11 @@ const ProductRoute = ProductRouteImport.update({
 const StablecoinsRoute = StablecoinsRouteImport.update({
   id: '/stablecoins',
   path: '/stablecoins',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
@@ -171,12 +189,15 @@ export interface FileRoutesByFullPath {
   '/brand': typeof BrandRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/how-it-works': typeof HowItWorksRoute
   '/merch': typeof MerchRoute
   '/pay': typeof PayRoute
   '/plans': typeof PlansRoute
   '/portal': typeof PortalRoute
+  '/privacy': typeof PrivacyRoute
   '/product': typeof ProductRoute
   '/stablecoins': typeof StablecoinsRoute
+  '/terms': typeof TermsRoute
   '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/dashboard/agent': typeof AuthenticatedDashboardAgentRoute
   '/dashboard/bookings': typeof AuthenticatedDashboardBookingsRoute
@@ -196,12 +217,15 @@ export interface FileRoutesByTo {
   '/brand': typeof BrandRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/how-it-works': typeof HowItWorksRoute
   '/merch': typeof MerchRoute
   '/pay': typeof PayRoute
   '/plans': typeof PlansRoute
   '/portal': typeof PortalRoute
+  '/privacy': typeof PrivacyRoute
   '/product': typeof ProductRoute
   '/stablecoins': typeof StablecoinsRoute
+  '/terms': typeof TermsRoute
   '/dashboard/agent': typeof AuthenticatedDashboardAgentRoute
   '/dashboard/bookings': typeof AuthenticatedDashboardBookingsRoute
   '/dashboard/checklist': typeof AuthenticatedDashboardChecklistRoute
@@ -222,12 +246,15 @@ export interface FileRoutesById {
   '/brand': typeof BrandRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/how-it-works': typeof HowItWorksRoute
   '/merch': typeof MerchRoute
   '/pay': typeof PayRoute
   '/plans': typeof PlansRoute
   '/portal': typeof PortalRoute
+  '/privacy': typeof PrivacyRoute
   '/product': typeof ProductRoute
   '/stablecoins': typeof StablecoinsRoute
+  '/terms': typeof TermsRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/_authenticated/dashboard/agent': typeof AuthenticatedDashboardAgentRoute
   '/_authenticated/dashboard/bookings': typeof AuthenticatedDashboardBookingsRoute
@@ -249,12 +276,15 @@ export interface FileRouteTypes {
     | '/brand'
     | '/contact'
     | '/faq'
+    | '/how-it-works'
     | '/merch'
     | '/pay'
     | '/plans'
     | '/portal'
+    | '/privacy'
     | '/product'
     | '/stablecoins'
+    | '/terms'
     | '/dashboard'
     | '/dashboard/agent'
     | '/dashboard/bookings'
@@ -274,12 +304,15 @@ export interface FileRouteTypes {
     | '/brand'
     | '/contact'
     | '/faq'
+    | '/how-it-works'
     | '/merch'
     | '/pay'
     | '/plans'
     | '/portal'
+    | '/privacy'
     | '/product'
     | '/stablecoins'
+    | '/terms'
     | '/dashboard/agent'
     | '/dashboard/bookings'
     | '/dashboard/checklist'
@@ -299,12 +332,15 @@ export interface FileRouteTypes {
     | '/brand'
     | '/contact'
     | '/faq'
+    | '/how-it-works'
     | '/merch'
     | '/pay'
     | '/plans'
     | '/portal'
+    | '/privacy'
     | '/product'
     | '/stablecoins'
+    | '/terms'
     | '/_authenticated/dashboard'
     | '/_authenticated/dashboard/agent'
     | '/_authenticated/dashboard/bookings'
@@ -326,12 +362,15 @@ export interface RootRouteChildren {
   BrandRoute: typeof BrandRoute
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
+  HowItWorksRoute: typeof HowItWorksRoute
   MerchRoute: typeof MerchRoute
   PayRoute: typeof PayRoute
   PlansRoute: typeof PlansRoute
   PortalRoute: typeof PortalRoute
+  PrivacyRoute: typeof PrivacyRoute
   ProductRoute: typeof ProductRoute
   StablecoinsRoute: typeof StablecoinsRoute
+  TermsRoute: typeof TermsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -392,6 +431,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/how-it-works': {
+      id: '/how-it-works'
+      path: '/how-it-works'
+      fullPath: '/how-it-works'
+      preLoaderRoute: typeof HowItWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/merch': {
       id: '/merch'
       path: '/merch'
@@ -420,6 +466,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortalRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/product': {
       id: '/product'
       path: '/product'
@@ -432,6 +485,13 @@ declare module '@tanstack/react-router' {
       path: '/stablecoins'
       fullPath: '/stablecoins'
       preLoaderRoute: typeof StablecoinsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/dashboard': {
@@ -558,12 +618,15 @@ const rootRouteChildren: RootRouteChildren = {
   BrandRoute: BrandRoute,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
+  HowItWorksRoute: HowItWorksRoute,
   MerchRoute: MerchRoute,
   PayRoute: PayRoute,
   PlansRoute: PlansRoute,
   PortalRoute: PortalRoute,
+  PrivacyRoute: PrivacyRoute,
   ProductRoute: ProductRoute,
   StablecoinsRoute: StablecoinsRoute,
+  TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

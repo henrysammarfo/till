@@ -19,6 +19,7 @@ export function SiteFooter() {
             <Link to="/product">How it works</Link>
             <Link to="/stablecoins">Stablecoins</Link>
             <Link to="/agent">Agent identity</Link>
+            <Link to="/portal">Client portal</Link>
             <Link to="/dashboard">Dashboard</Link>
           </div>
           <div>
@@ -27,19 +28,22 @@ export function SiteFooter() {
             <Link to="/brand">Brand</Link>
             <Link to="/merch">Merch</Link>
             <Link to="/faq">FAQs</Link>
+            <Link to="/book">Book a call</Link>
           </div>
           <div>
             <h4>Connect</h4>
             <Link to="/contact">Get in touch</Link>
+            <a href="https://t.me/TillPay_bot" target="_blank" rel="noreferrer">
+              Telegram bot
+            </a>
             <a href="https://celoscan.io" target="_blank" rel="noreferrer">
               Celoscan
             </a>
-            <a href="https://dune.com/celo/agents-at-work-hackathon" target="_blank" rel="noreferrer">
-              Dune leaderboard
+            <a href="https://github.com/henrysammarfo/till" target="_blank" rel="noreferrer">
+              GitHub
             </a>
-            <a href="https://celobuilders.xyz" target="_blank" rel="noreferrer">
-              Celo Builders
-            </a>
+            <Link to="/privacy">Privacy</Link>
+            <Link to="/terms">Terms</Link>
           </div>
         </div>
         <div className="footer-bottom">

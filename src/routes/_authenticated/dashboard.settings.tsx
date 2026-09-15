@@ -96,7 +96,7 @@ function SettingsPage() {
               <label className="label" htmlFor="tag">
                 Attribution tag
               </label>
-              <input className="input mono" id="tag" defaultValue="celo_9f31ab77c204" readOnly />
+              <input className="input mono" id="tag" defaultValue="celo_f30ff80110c6" readOnly />
             </div>
             <p className="body-sm">
               The attribution tag is fixed at registration. Changing it would orphan every prior

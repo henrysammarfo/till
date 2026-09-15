@@ -67,3 +67,41 @@ Only verified or explicitly marked **UNVERIFIED** claims live here. Update when 
 | Mento NGNm `0xE2702Bd97ee33c88c8f6f92DA3B733608aa76F71` is not ASC cNGN | **VERIFIED** | on-chain symbol `NGNm` / name `Mento Nigerian Naira`; Celo token-contracts docs |
 | Telegram bot `@TillPay_bot` | **VERIFIED** | Bot API `getMe` ok |
 
+
+## Verified 2026-09-11
+- Attribution tag in UI = `.env` `CELO_ATTRIBUTION_TAG` = `celo_f30ff80110c6`
+- Agent wallet short form matches `CELO_AGENT_WALLET`
+- GitHub links point to `henrysammarfo/till`
+- Telegram bot `@TillPay_bot` from env username
+- Build passes with new privacy/terms routes
+
+## Verified 2026-09-11 (partial)
+- GitHub `henrysammarfo/till` is **public**
+- Production `/api/ready` reports `tavilyKey: true` after Vercel env sync
+- Live MiniPay settle: job created, **signature pending** — attribution not yet verified on-chain
+- `x402ApiKey` still false until operator pastes key
+
+## Verified 2026-09-11
+- Live tagged mainnet tx `0x7d0221dfe80738d5ea59067e0904e599cbbedd1d9573fd2cc372aaabb7ad9b7b` includes `celo_f30ff80110c6` via `@celo/attribution-tags` verifyTx
+- Celoscan: https://celoscan.io/tx/0x7d0221dfe80738d5ea59067e0904e599cbbedd1d9573fd2cc372aaabb7ad9b7b
+- Residual: this settle was agent-wallet CELO (not MiniPay EIP-3009 / cNGN). Product MiniPay loop still unproven end-to-end.
+- `tavilyKey: true` on production ready; `x402ApiKey: false`
+
+## Verified 2026-09-14
+- x402 facilitator `https://api.x402.celo.org` `/supported` returns kinds for `celo` / `eip155:42220`
+- Operator-issued `X402_API_KEY` authenticates `/settle` (dummy payload → 400 scheme error, not 401)
+- Earlier same-day: production `x402ApiKey` was false (SAML token block); later unblocked with fresh token
+
+## Verified 2026-09-14 (x402 prod)
+- Vercel env upsert + production redeploy succeeded with team-scoped token
+- https://till-topaz.vercel.app/api/ready → `x402ApiKey: true`, `tavilyKey: true`, `ready: true`
+
+## Verified 2026-09-15
+- Submission deadline for agents-at-work (timeline): 2026-09-21T09:00:00.000Z
+- Submission was draft until socialLink set; now **published**
+- Repo https://github.com/henrysammarfo/till is public; demo https://till-topaz.vercel.app returns 200
+
+## Verified 2026-09-15 (publish)
+- `GET /submissions/me` → `status: published`, `publishedAt: 2026-09-15T04:56:39.916Z`
+- `socialLink`: https://x.com/henrysammarfo_2/status/2099721368849768591
+- `attributionTag`: `celo_f30ff80110c6`

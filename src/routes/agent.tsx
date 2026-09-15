@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, CircleCheck, FileCode2, KeyRound, ScanLine, ShieldCheck } from "lucide-react";
 import { PageShell } from "@/components/PageShell";
+import { AGENT_IDENTITY } from "@/lib/agent-identity";
 
 export const Route = createFileRoute("/agent")({
   head: () => ({
@@ -22,12 +23,12 @@ export const Route = createFileRoute("/agent")({
 });
 
 const registry = [
-  ["Primary track", "real-world-adoption"],
-  ["Network", "celo-mainnet"],
-  ["Attribution tag", "celo_9f31ab77c204"],
-  ["Agent wallet", "0x7f2c…c41d"],
-  ["ERC-8004", "8004scan.io/agent/till"],
-  ["Repository", "github.com/till-agent/till"],
+  ["Primary track", AGENT_IDENTITY.primaryTrack],
+  ["Network", AGENT_IDENTITY.network],
+  ["Attribution tag", AGENT_IDENTITY.attributionTag],
+  ["Agent wallet", AGENT_IDENTITY.walletShort],
+  ["ERC-8004", AGENT_IDENTITY.erc8004Url.replace("https://", "")],
+  ["Repository", AGENT_IDENTITY.githubShort],
 ];
 
 const commitments = [

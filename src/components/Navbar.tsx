@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ChevronUp, X } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 import { Logo } from "./Logo";
 
 const links = [
@@ -56,7 +56,7 @@ export function Navbar() {
           </nav>
           <button className="pill" onClick={() => setOpen(true)} aria-label="Open menu">
             Menu
-            <ChevronUp size={16} strokeWidth={2.2} />
+            <ChevronDown size={16} strokeWidth={2.2} />
           </button>
         </div>
       </header>

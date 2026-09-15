@@ -1,5 +1,39 @@
 # Session Log
 
+## 2026-09-15 — celobuilders submission PUBLISHED
+
+- Set `socialLink` to https://x.com/henrysammarfo_2/status/2099721368849768591
+- `POST /submissions/me/publish` → status **published** (`publishedAt` 2026-09-15T04:56:39.916Z)
+- Tag `celo_f30ff80110c6` · demo https://till-topaz.vercel.app · repo public
+- Residual risk only — not unhackable. Rotate secrets after hack.
+
+
+## 2026-09-15 — celobuilders publish blocked on socialLink
+
+- Filled draft: demo, celo-mainnet, bounties, agent notes, stablecoins, app domain.
+- Publish API returns 400: `socialLink` (Twitter/X Submission Link) required.
+- Awaiting operator X post URL tagging @CeloDevs + @Celo; then `POST /submissions/me/publish` with `confirm: true`.
+- Residual risk only — not unhackable.
+
+
+## 2026-09-14 — x402 live on Vercel production
+
+- Fresh team-scoped `VERCEL_TOKEN` unblocked `teamtitanlink`.
+- Upserted `X402_API_KEY` / `X402_FACILITATOR_URL` / `X402_PAY_TO`; redeployed production.
+- Confirmed https://till-topaz.vercel.app/api/ready → `x402ApiKey: true`.
+- Residual risk only — rotate x402 key + Vercel token after hack (pasted in chat).
+
+
+## 2026-09-14 — x402 API key received; Vercel sync blocked on SAML
+
+- Operator created `X402_API_KEY` on https://x402.celo.org (20 free mainnet settlements).
+- Key written to local `.env` (gitignored); not echoed back in chat.
+- Facilitator check: good key accepted (dummy settle → 400 `unsupported_scheme`); bad key → 401.
+- `VERCEL_TOKEN` in env is `vcp_…` and returns 403 for scope `teamtitanlink` (SAML re-auth). MCP can read the project but has no env-upsert tool.
+- Production still `x402ApiKey: false` until dashboard upsert or fresh team-scoped token + `scripts/sync-vercel-env.sh` + redeploy.
+- Residual risk only — rotate key after hack (pasted in chat).
+
+
 ## 2026-09-11 — Telegram + cNGN pushed to Vercel; production redeployed
 
 - Fresh Vercel token used to upsert Telegram bot/secret + official ASC cNGN address and redeploy.
@@ -89,3 +123,23 @@
 - bun run test + smoke:attribution + bun run build green.
 - Still blocked on user keys for first live tagged mainnet settle.
 - Residual risk only — do not claim unhackable.
+
+## 2026-09-11 — sitewide links & portal bugs
+- Fixed sparse portal/book layout (missing `.wrap`)
+- Wired contact form to Supabase `bookings`
+- Corrected agent/contact/product/settings identity strings to live tag/wallet/repo
+- Added privacy, terms, how-it-works redirect, sitemap.xml
+- Regenerated favicons/OG; IBM Plex Sans; Navbar ChevronDown; footer links complete
+
+## 2026-09-11 18:31 UTC — public repo + first live settle job + Tavily
+- Confirmed GitHub repo public
+- Synced `TAVILY_API_KEY` to Vercel production and redeployed (`tavilyKey: true`)
+- Requested `X402_API_KEY` from operator (not in env yet)
+- Created till job `44708a3c-8ce6-4377-be63-3cd7e1bbc54f` for 1 cNGN → `0x13b239a267b061c60c9dcaF0071C305b47E4AcBa`; pay URL ready for MiniPay signature
+- Secret rotation postponed until after hackathon
+
+## 2026-09-11 21:03 UTC — first tagged mainnet settle verified
+- Sent 0.05 CELO from agent wallet with attribution suffix `celo_f30ff80110c6`
+- Tx 0x7d0221dfe80738d5ea59067e0904e599cbbedd1d9573fd2cc372aaabb7ad9b7b — verifyTx OK
+- MiniPay user-sign not required for this attribution proof; used CELO balance as requested
+- x402 key still outstanding; Tavily already live

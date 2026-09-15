@@ -127,7 +127,7 @@ ERC-8004 agent identity · Para wallet hygiene`}</pre>
                 </div>
                 <div className="bubble bubble-user">yes</div>
                 <div className="bubble">
-                  Signed &amp; settled. Gas paid in cNGN. Tag celo_9f31ab77c204 · view on Celoscan.
+                  Signed &amp; settled. Gas paid in cNGN. Tag celo_f30ff80110c6 · view on Celoscan.
                 </div>
               </div>
             </div>
